@@ -1,0 +1,1632 @@
+%TODO tilda
+
+\documentclass[12pt,notitlepage,fleqn]{report} %\pagestyle{plain}
+\pagestyle{myheadings}
+\frenchspacing 
+%\usepackage[left=2cm,top=1cm,right=2cm,nohead,nofoot]{geometry}
+\usepackage{a4wide}
+\usepackage[left=4cm]{geometry}
+% \usepackage{theorem}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[czech]{babel}
+\usepackage{ae}
+\usepackage{fontenc}
+\usepackage{graphicx}
+%\usepackage{epstopdf}
+\usepackage{color}
+% \usepackage{listings,textcomp,palatino}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+% \usepackage{wasysym}
+%\usepackage[a4paper=true,pagebackref=true]{hyperref}
+\usepackage{paralist}
+
+\emergencystretch=0pt
+\pretolerance=150
+\tolerance=250
+\hbadness=150
+\hfuzz=0pt
+
+%\markright{\today}
+
+% \setlength\parindent{0.5cm}
+
+% \theoremheaderfont{\bfseries\rmfamily}
+% \theorembodyfont{\rmfamily}
+\theoremstyle{definition}
+\newtheorem{veta}{Věta}[chapter]
+\newtheorem{defin}[veta]{Definice}
+\newtheorem{lemma}[veta]{Lemma}
+\newtheorem{tvrz}[veta]{Tvrzení}
+\newtheorem{dusl}[veta]{Důsledek}
+\newtheorem{pozor}[veta]{Pozorování}
+\newtheorem{alg}{Algoritmus}[chapter]
+\newtheorem{prb}{Problém}[chapter]
+\newtheorem{pozn}[veta]{Poznámka}
+
+\newcommand{\thmdefin}[2]{\begin{defin}[#1] \n #2 \end{defin}}{
+\newcommand{\thmveta}[2]{\begin{veta}[#1] \n #2 \end{veta}}
+\newcommand{\thmlemma}[2]{\begin{lemma}[#1] \n #2 \end{lemma}}
+\newcommand{\thmtvrz}[2]{\begin{tvrz}[#1] \n #2 \end{tvrz}}
+\newcommand{\thmtvrzone}[1]{\begin{tvrz} \n #1 \end{tvrz}}
+\newcommand{\thmdusl}[2]{\begin{dusl}[#1] \n #2 \end{dusl}}
+\newcommand{\thmduslone}[1]{\begin{dusl} \n #1 \end{dusl}}
+\newcommand{\thmpozor}[2]{\begin{pozor}[#1] \n #2 \end{pozor}}
+\newcommand{\thmpozorone}[1]{\begin{pozor} \n #1 \end{pozor}}
+\newcommand{\thmpozn}[2]{\begin{pozn}[#1] \n #2 \end{pozn}}
+\newcommand{\thmpoznone}[1]{\begin{pozn} \n #1 \end{pozn}}
+% \newcommand{\dukaz}[1]{\textit{Důkaz:} #1 \hfill$\Square$}
+\newcommand{\dukaz}[1]{\begin{proof} #1 \end{proof}}
+
+\def\ent{$\:$}
+\def\n{\ent \\}
+\def\|{\:|\:}
+\def\,{,\:}
+\def\t{\hspace*{0.5cm}}
+\def\eq{\Leftrightarrow}
+\def\impl{\Rightarrow}
+\def\->{\rightarrow}
+\def\tridaP{\mathbb{P}}
+\def\tridaNP{\mathbb{NP}}
+\def\tridacoNP{\mbox{\normalfont{co-}}\mathbb{NP}}
+\def\P{\mathcal{P}}
+\def\L{\mathcal{L}}
+\def\N{\mathbb{N}}
+\def\Re{\mathbb{R}}
+\def\R+{\mathbb{R}_0^+}
+\def\Z{\mathbb{Z}}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\suma}[2]{\sum\limits_{#1}^{#2}}
+\newcommand{\nt}[1]{\langle #1 \rangle} %ntice
+
+\definecolor{gray}{gray}{0.5}
+\definecolor{green}{rgb}{0,0.5,0}
+
+% \lstnewenvironment{python}[1][]{
+% \lstset{
+% language=python,
+% basicstyle=\ttfamily\small,%\setstretch{1},
+% stringstyle=\color{red},
+% showstringspaces=false,
+% alsoletter={1234567890},
+% otherkeywords={\ , \}, \{},
+% keywordstyle=\color{blue},
+% emph={access,and,break,class,continue,def,del,elif,else,%
+% except,exec,finally,for,from,global,if,import,in,is,%
+% lambda,not,or,pass,print,raise,return,try,while},
+% emphstyle=\color{black}\bfseries,
+% emph={[2]True, False, None, self},
+% emphstyle=[2]\color{green},
+% emph={[3]from, import, as},
+% emphstyle=[3]\color{blue},
+% upquote=true,
+% morecomment=[s]{"""}{"""},
+% commentstyle=\color{gray}\rmfamily\slshape\small,
+% emph={[4]1, 2, 3ps2pdf=true,, 4, 5, 6, 7, 8, 9, 0},
+% emphstyle=[4]\color{blue},
+% literate=*{:}{{\textcolor{blue}:}}{1}%
+% 	{=}{{\textcolor{blue}=}}{1}%
+% 	{-}{{\textcolor{blue}-}}{1}%
+% 	{+}{{\textcolor{blue}+}}{1}%
+% 	{*}{{\textcolor{blue}*}}{1}%
+% 	{!}{{\textcolor{blue}!}}{1}%
+% 	{(}{{\textcolor{blue}(}}{1}%
+% 	{)}{{\textcolor{blue})}}{1}%
+% 	{[}{{\textcolor{blue}[}}{1}%
+% 	{]}{{\textcolor{blue}]}}{1}%
+% 	{<}{{\textcolor{blue}<}}{1}%
+% 	{>}{{\textcolor{blue}>}}{1},%
+% framexleftmargin=1mm, framextopmargin=1mm, frame=shadowbox, rulesepcolor=\color{blue},
+% mathescape=true,
+% #1
+% }}{}
+
+\title{Heuristikou řízené hledání optima v NP-těžkých úlohách}
+
+\author{Jindřich Ivánek}
+
+\hyphenation{kon-zis-tent-ní-mi na-le-ze-ním nej-vět-ším o-pač-ný vy-ře-še-ním při-bli-žo-vá-ním pře-kro-če-ní pou-ží-vá re-pre-zen-tu-je odpo-ví-dá o-by-čej-né kaž-dý po-kry-tí po-tvr-di-ly apro-xi-ma-ce apro-xi-ma-cí apro-xi-ma-ční-ho apro-xi-ma-ční roz-sa-hu splý-vá od-dě-le-ný-mi mi-ni-mem op-ti-ma-li-zač-ní va-rian-ta ge-ne-ro-vá-ní ge-ne-ro-va-ných ge-ne-ro-va-né ge-ne-ro-vá-ny ge-ne-ro-va-ná stru-ktu-ro-va-ných op-ti-ma-li-zač-ních po-psa-ný zá-klad-ní ma-xi-mál-ní po-uží-vá na-nej-výš ně-kte-ré cel-ko-vé-ho vy-tvo-ře-ný nej-sil-něj-ší vzta-hů pří-kla-dům pří-kla-dy je-dno-ho ty-pi-cky pře-kva-pi-vě pří-slu-šných za-dá-ní zobra-zo-ván nej-krat-ší-ho}
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\ \\
+
+\vspace{15mm}
+
+\large
+Univerzita Karlova v Praze\\
+Matematicko-fyzikální fakulta\\
+
+\vspace{5mm}
+
+{\Large\bf BAKALÁŘSKÁ PRÁCE}
+
+\vspace{10mm}
+
+%%% Aby vložní loga vše správně fungovalo, je třeba mít soubor logo.eps nahraný v pracovním adresáři,
+%%% tj. v adresáři, kde se nachází překládaný zdrojový soubor. Soubor logo.eps je možné získat např.
+%%% na adrese: http://www.mff.cuni.cz/fakulta/symboly/logo.eps
+\includegraphics[scale=0.3]{logo.pdf} 
+
+\vspace{15mm}
+
+%\normalsize
+{\Large Jindřich Ivánek}\\
+\vspace{5mm}
+{\Large\bf Heuristikou řízené hledání optima v NP-těžkých úlohách}\\
+\vspace{5mm}
+Katedra aplikované matematiky\\ % doplňte název katedry či ústavu
+\end{center}
+\vspace{10mm}
+
+\large
+\noindent Vedoucí bakalářské práce: RNDr. Martin Pergel, Ph.D.,\\ % doplňte odpovídající údaje
+%%% další řádek můžete ve většině případů (tj. pokud údaje uvedené výše nejsou příliš dlouhé) zrušit
+\hskip20mm Kabinet software a výuky informatiky
+\vspace{1mm} 
+
+\noindent Studijní program: Informatika % doplňte odpovídající údaje
+%%% další řádek můžete ve většině případů (tj. pokud údaje uvedené výše nejsou příliš dlouhé) zrušit
+%\hskip20mm oboru (směru),  příp. název studijního plánu
+
+\vspace{10mm}
+
+\begin{center}
+2010 % doplňte rok vzniku vaší bakalářské práce
+\end{center}
+
+\end{titlepage} % zde končí úvodní strana
+
+\normalsize % nastavení normální velikosti fontu
+\setcounter{page}{2} % nastavení číslování stránek
+\ \vspace{10mm} 
+
+\noindent Děkuji svému vedoucímu RNDr. Martinu Pergelovi, Ph.D. za četné rady a připomínky. % doplňte vlastní text
+
+\vspace{\fill} % nastavuje dynamické umístění následujícího textu do spodní části stránky
+\noindent Prohlašuji, že jsem svou bakalářskou práci napsal samostatně a výhradně s použitím citovaných pramenů. Souhlasím se zapůjčováním práce a jejím zveřejňováním.
+
+\bigskip
+\noindent V Praze dne 6.8.2010 \hspace{\fill}Jindřich Ivánek\\ % doplňte patřičné datum, jméno a příjmení
+
+%%%   Výtisk pak na tomto míste nezapomeňte PODEPSAT!
+%%%                                         *********
+
+\tableofcontents % vkládá automaticky generovaný obsah dokumentu
+
+\newpage % přechod na novou stránku
+
+%%% Následuje strana s abstrakty. Doplňte vlastní údaje.
+\noindent
+Název práce: Heuristikou řízené hledání optima v NP-těžkých úlohách\\
+Autor: Jindřich Ivánek\\
+Katedra (ústav): Katedra aplikované matematiky\\
+Vedoucí bakalářské práce: \\
+RNDr. Martin Pergel, Ph.D., Kabinet software a výuky informatiky\\
+e-mail vedoucího: Martin.Pergel@mff.cuni.cz\\
+
+\noindent Abstrakt: Zabýváme se aplikací algoritmu A* pro řešení různých optimalizačních kombinatorických problémů. Používáme variantu algoritmu A* s konzistentními heuristikami doplněnou o využití aproximativních řešení. V práci jsme navrhli obecnou metodu a vytvořili programové prostředí, v němž je možné realizovat různé aplikace algoritmu A*.
+Možnosti této metody jsou demonstrovány na čtyřech vybraných NP-těžkých optimalizačních problémech, které mají odlišné vlastnosti z hlediska aplikace A*. Jde o problém obchodního cestujícího, problém vrcholového pokrytí, problém batohu a problém rozvržení úloh. Každý z problémů byl převeden do A*-grafu tak, aby nalezení minimální cesty v tomto grafu bylo ekvivalentní s nalezením optimálního řešení problému. Implementovány byly základní aproximace a heuristiky, u nichž byla dokázána konzistence.
+Testovací příklady porovnávají sílu jednotlivých heuristik a aproximací a ukazují zrychlení oproti exhaustivnímu prohledávání. \\
+
+\noindent Klíčová slova: Algoritmus A*, optimalizační NP-úplné problémy, konzistentní heuristikou řízené hledání, aproximace
+
+%\vspace{10mm}
+\eject
+
+\noindent
+Title: Heuristic-driven methods finding optimum for NP-hard problems\\
+Author: Jindřich Ivánek\\
+Department: Department of Applied Mathematics\\
+Supervisor: \\
+RNDr. Martin Pergel, Ph.D., Department of Software and Computer Science Education\\
+Supervisor's e-mail address: Martin.Pergel@mff.cuni.cz\\
+
+\noindent Abstract: In the present work we study applications of the algorithm A* for solving different combinatorial optimization problems. We use a variant of the algorithm A* with consistent heuristics supplied by taking advantage of approximative solutions.
+We designed a general method and created  a program environment in which possible applications of the algorithm A* could be realized. Possibilities of this method are demonstrated on four selected NP-hard optimization problems, namely traveling salesman problem, vertex covering, knapsack problem, and scheduling problem.
+Each problem was transformed to an A*-graph in the way that finding a minimal path in this graph is equivalent with finding an optimal solution of the problem. There were implemented several basic approximations and heuristics for which their consistency was proved. Testing examples compare strongness of individual heuristics and approximations, and show accelerations against exhaustive searching. \\
+
+\noindent Keywords: Algorithm A*, NP-complete optimization problems, consistent heuristic-driven searching, approximation
+
+\newpage
+
+\chapter{Úvod a základní pojmy}
+
+  Metody \emph{heuristikou řízeného prohledávání} byly vyvinuty v 50. a 60. letech minulého století v rámci výzkumu umělé inteligence. Jejich obecnou teorii shrnuje monografie N. J. Nilssona Problem-Solving Methods in Artificial Intelligence z roku 1971 \cite{nilsson}, z níž ve své práci také vycházím. Popis heuristikou řízeného \emph{algoritmu A*} a jeho vlastností je též součástí každého přehledu výzkumu umělé inteligence, viz například \cite{russel}. Předmětem předkládané práce je studium možností aplikace heuristikou řízeného prohledávání algoritmem A* na \emph{hledání optimálních řešení} některých \emph{NP-těžkých problémů}, obdobně jako v článku \cite{ivanek}.
+  
+  V úvodních kapitolách práce je formulována varianta algoritmu A* pracujícího s \emph{konzistentními heuristikami} a efektivně využívající též konstrukce \emph{aproximativních řešení}. Uvedeny jsou potřebné teoretické vlastnosti algoritmu, zejména jeho korektnost.
+  
+  Ve třetí kapitole jsou pro čtyři vybrané NP-těžké problémy definovány jejich převody na \emph{A*-grafy}, umožňující aplikaci algoritmu A*. U navržených heuristik je dokázána jejich konzistence nutná pro aplikaci dané varianty algoritmu A*.
+  
+  Při implementaci algoritmu A* bylo vytvořeno v jazyce C speciální \emph{programové prostředí} s datovými strukturami adekvátními potřebám efektivního prohledávání při omezené paměti (\emph{halda}, \emph{B-strom}).
+  
+  Závěrečné kapitoly práce obsahují uživatelskou a programátorskou dokumentaci implementace a výsledky \emph{řešení ukázkových příkladů} pro každý ze čtyř vybraných NP-těžkých problémů.
+  
+  Na závěr je zhodnocena úspěšnost zformulované metody, její vhodnost pro řešení vybraných problémů a navržena možnost dalšího výzkumu v tomto směru.
+  
+  Na přiloženém CD lze najít celou práci ve formátu pdf a vytvořené programové prostředí včetně zdrojových kódů.
+
+%\section{Základní pojmy}
+%V této sekci uvádíme stručné definice základních pojmů, které používáme v dalších kapitolách.
+
+  \thmdefin{Graf, cesta, kružnice}{
+    \emph{Graf} je dvojice $\nt{V, E}$\footnote{$\nt{x,y}; \nt{x,y,z}; \nt{x_1, \ldots, x_n}$ je uspořádaná dvojice, trojice, $n$-tice prvků. Používáme pro větší přehlednost v některých zápisech.}, kde $E \subseteq V \times V$ je antireflexivní relace. Prvkům množiny $V$ říkáme \emph{vrcholy}, prvkům $E$ říkáme \emph{hrany}. Pokud je $V$ konečná množina, říkáme že, graf je konečný.
+
+    \emph{Neorientovaný graf} je graf $\nt{V, E}$, kde $E$ je navíc symetrická relace.
+    
+    \emph{Podgraf} grafu $\nt{V,E}$ je graf $\nt{V',E'}$, kde $V' \subseteq V$, $E' \subseteq E$ a platí $E' \subseteq V' \times V'$. 
+    
+    \emph{Cesta} je uspořádaná posloupnost navzájem různých vrcholů $\nt{v_1, \ldots, v_n}$, kde každé dva za sebou jdoucí vrcholy jsou spojeny hranou. Tedy platí: $\forall i \in \{1, \ldots, n-1 \}: \nt{ v_i, v_{i+1} } \in E$.
+
+    \emph{Kružnice} je cesta, která má spojený hranou i poslední a první vrchol, tedy $\nt{ v_n, v_1 } \in E$.
+    
+    \emph{Hamiltonovská kružnice} je kružnice, která prochází všemi vrcholy grafu.
+     
+    \emph{Vážený graf} je graf, ke kterému přidáme funkci \emph{ohodnocení hran}. Tedy je to trojice $\nt{V,E, c: E \to \Re}$.
+     
+    U váženého grafu je \emph{délka cesty} funkce \[ c(\nt{v_1, \ldots, v_n}) = \suma{i \in \{1, \ldots, n-1 \}}{} c(\nt{ v_i, v_{i+1} }). \]
+
+    Podobně \emph{délka kružnice} je funkce  \[ c(\nt{v_1, \ldots, v_n}) = \suma{i \in \{1, \ldots, n-1 \}}{} c(\nt{ v_i, v_{i+1} }) + c(\nt{ v_n, v_1 }). \]
+  }
+
+  \thmdefin{Složitost algoritmu}{
+    Budeme používat obvyklou definici \emph{časové složitosti} algoritmu, tedy funkci $f(|D|)$ udávající počet elementárních kroků algoritmu v závislosti na velikosti vstupu $|D|$.
+    
+    Podobně budeme využívat i obvyklou $O$-notaci pro asymptotickou časovou složitost algoritmu:
+    
+    Řekneme, že funkce $f$ je \emph{asymptoticky menší nebo rovna} funkci $g$, a píšeme $f(n) \in O(g(n))$, pokud
+    \[ \exists c \, \exists n_0 > 0 \, \forall n \geq n_0: 0 \leq f(n) \leq c \cdot g(n). \]
+    
+%     Řekneme, že funkce $f$ je \emph{asymptoticky stejná} jako funkce $g$, a píšeme $f(n) \in \Theta(g(n))$, pokud
+%     \[ \exists c>0 \, \exists d>0 \, \exists n_0 > 0 \, \forall n \geq n_0: 0 \leq c \cdot g(n) \leq f(n) \leq d \cdot g(n). \]
+  }
+  
+%   \thmdefin{Úloha}{
+% \begin{itemize}
+%     \item \emph{Úloha} je situace, kdy pro daný vstup (\emph{instanci úlohy}) chceme získat výstup se zadanými vlastnostmi.
+%     \item \emph{Optimalizační úloha} je úloha, kde cílem je získat optimální (zpravidla největší nebo nejmenší) výstup s danými vlastnostmi. 
+%     \item \emph{Rozhodovací problém} je úloha, jejímž výstupem je ANO/NE.
+% \end{itemize}
+% }
+
+\thmpozn{Optimalizační problém}{
+  V práci se budeme zabývat řešením \emph{optimalizačních problémů}, v nichž je cílem získat optimální (zde \emph{minimální}) výstup. Z hlediska složitosti je každý optimalizační problém alespoň tak těžký jako \emph{odpovídající rozhodovací problém} (zda existuje výstup s hodnotou menší než zadané $K$). Formálně budeme dále definovat třídy složitosti rozhodovacích problémů.
+}
+
+\thmdefin{Kódování vstupů a rozhodovací problém}{
+Každá instance (zadání) problému $Q$ je kódována jako slovo v abecedě $\{0,1\}^*$. Kódy všech instancí problému $Q$ tvoří jazyk $L(Q)$ nad abecedou $\{0,1\}^*$, který se dělí na $L(Q)_Y$ -- kódy instancí s odpovědí ANO, $L(Q)_N$ -- kódy instancí s odpovědí NE.
+\emph{Rozhodovací problém} pak je rozhodnutí, zda $x\in L(Q)_Y$, nebo $x\in L(Q)_N$ (kde $x$ je kód nějaké instance $Q$), když předpokládáme, že ověření $x\in L(Q)$ lze udělat v polynomiálním čase vzhledem k $|x|$.
+}
+
+\thmdefin{Deterministický Turingův stroj (DTS)}{
+DTS obsahuje řídící jednotku, čtecí/zápisovou hlavu a (nekonečnou) pásku. Program sestává z
+\begin{compactenum}
+    \item konečné množiny $\Gamma$ páskových symbolů, $\Sigma \subset \Gamma$ vstupních symbolů a prázdného symbolu $\lambda \in \Gamma$, 
+    \item konečné množiny $Q$ stavů řídící jednotky, která obsahuje startovní stav $q_0$ a dva terminální stavy $q_Y$, $q_N$,
+    \item přechodové parciální funkce $\delta:(Q\backslash\{q_Y,q_N\})\times\Gamma\to Q\times\Gamma\times\{\leftarrow, \bullet, \rightarrow \}$.
+\end{compactenum}
+
+Elementární \emph{krok} DTS s programem $M$ spočívá v aplikaci přechodové funkce na aktuální stav a čtený symbol na pásce - výsledkem je eventuální změna stavu, zápis na pásku a posun hlavy. \emph{Výpočet} pro vstup $x \in \Sigma^*$ je posloupnost elementárních kroků začínající ve startovním stavu s hlavou na pásce na prvním symbolu zapsaného vstupu $x$. Výpočet se \emph{zastaví}, jestliže aktuální stav je terminální nebo pro něj a čtený symbol není přechodová funkce definována.
+
+
+\emph{Jazyk rozpoznávaný programem M} je $L(M)~=~\{x~\in~\Sigma^* \| M~\mbox{ přijímá } x\}$.
+
+DTS s programem $M$ \emph{řeší} problém $Q$, právě když výpočet $M$ skončí pro každý vstup $x\in\Sigma^*$ a platí $L(M)=L(Q)_Y$.
+
+Nechť $M$ je program pro DTS, který skončí pro $\forall x\in\Sigma^*$. \emph{Časová složitost} programu $M$ je dána funkcí
+$$T_M(n)=\max\{m \| \exists x\in\Sigma^*,|x|=n, \\ \mbox{ výpočet }M\mbox{ pro }x\mbox{ skončí po }m\mbox{ krocích}\}. $$ 
+Pokud existuje polynom $p$, že pro všechna přirozená $n$ platí $T_M(n)\leq p(n)$, pak $M$ je \emph{polynomiální DTS program}.
+}
+
+\thmdefin{Třída P}{
+Problém $Q$ je ve třídě P, právě když existuje \emph{polynomiální DTS program} $M$, který řeší $Q$.
+}
+
+\thmdefin{Nedeterministický Turingův stroj (NTS)}{
+Stejný jako DTS, ale místo přechodové funkce $\delta$ je zde zobrazení $\delta$, které každé dvojici z $Q\times\Gamma$ přiřazuje množinu možných pokračování výpočtu -- trojic z $Q\times\Gamma\times\{\leftarrow, \bullet, \rightarrow \}$.
+
+NTS s programem $M$ \emph{přijímá} $x\in\Sigma^*$, právě když existuje přijímající výpočet programu $M$ (tj. běh $M$, kdy na vstupu je $x$ a končí se ve stavu $q_Y$). 
+
+\emph{Jazyk rozpoznávaný programem M} je $L(M)=\{x\in\Sigma^* \| M \mbox{ přijímá } x\}$.
+
+NTS s programem $M$ \emph{řeší} problém $Q$, právě když platí $L(M)=L(Q)_Y$.
+
+Čas, ve kterém $M$ přijímá $x\in\Sigma^*$, definujeme jako počet kroků nejkratšího přijímajícího výpočtu nad daty $x$.
+
+\emph{Časová složitost} programu je dána funkcí:
+$$T_M(n)=\begin{cases}1 \mbox{ neexistuje }x\mbox{ délky }n\mbox{, které je přijímáno }\\\max\{m \| \exists x\in\Sigma^*,|x|=n, M\mbox{ přijímá }x\mbox{ v čase }m\}\end{cases}$$ 
+Pokud existuje polynom $p$, že pro všechna přirozená $n$ platí $T_M(n)\leq p(n)$, pak $M$ je \emph{polynomiální NTS program}.
+}
+
+\thmdefin{Třída NP}{
+Problém $Q$ je ve třídě NP, právě když existuje \emph{polynomiální NTS program} $M$, který řeší $Q$.
+}
+
+\thmdefin{Polynomiálně vyčíslitelná funkce}{
+Funkce $f:\{0,1\}^*\to\{0,1\}^*$ je \emph{polynomiálně vyčíslitelná}, právě když existuje polynom $p$ a algoritmus $A$ takový, že pro každý vstup $\{0,1\}^*$ dává výstup $f(x)$ v čase nejvýše $p(|x|)$.
+}
+
+\thmdefin{Polynomiální převoditelnost}{
+Jazyk $L_1$ je \emph{polynomiálně převoditelný} na jazyk $L_2$ (píšeme $L_1\propto L_2$), právě když existuje polynomiálně vyčíslitelná funkce $f$ taková, že
+$$\forall x\in\{0,1\}^*:x\in L_1\equiv f(x)\in L_2$$
+}
+
+\thmdefin{NP-těžký, NP-úplný problém}{
+Problém $Q$ je \emph{NP-těžký}, právě když $\forall Q'\in\mathrm{NP}:L(Q')_Y\propto L(Q)_Y$.
+Problém $Q$ je \emph{NP-úplný}, právě když $Q$ je NP-těžký a $Q\in\mathrm{NP}$.
+}
+
+\thmdefin{Silně NP-úplný problém}{
+Pro rozhodovací problém označme $\code{kód}(I)$ délku zápisu (počet bitů) instance problému v binárním kódování, $\code{max}(I)$ velikost největšího čísla vyskytujícího se v instanci problému. Pro polynom $p$ označme $\Pi_p$ množinu instancí (podproblém) problému $\Pi$, pro které platí $\code{max}(I)\leq p(\code{kód}(I))$.
+
+Rozhodovací problém $\Pi$ je \emph{silně NP-úplný}, pokud $\Pi\in$ NP a existuje polynom $p$ takový, že podproblém $\Pi_p$ je NP-úplný. 
+}
+
+\thmdefin{Aproximační algoritmus}{
+\emph{Aproximační algoritmus} je algoritmus, který běží v polynomiálním čase a vrací korektní řešení \uv{blízká} optimu. 
+Označme $\code{opt}$ hodnotu optimálního řešení a $\code{apr}$ hodnotu nalezenou aproximačním algoritmem,
+přičemž předpokládáme nezáporné hodnoty řešení.
+}
+
+\thmdefin{Poměrová chyba}{
+Řekneme, že algoritmus řeší problém s \emph{poměrovou chybou} $\rho(n)$, pokud pro každé zadání velikosti $n$ platí:
+$$\max \left\{ \frac{\code{opt}}{\code{apr}},\frac{\code{apr}}{\code{opt}} \right\} \leq \rho(n)$$
+}
+
+\thmdefin{Relativní chyba}{
+Řekneme, že algoritmus řeší problém s \emph{relativní chybou} $\varepsilon(n)$, pokud pro každé zadání velikosti $n$ platí:
+$$\frac{|\code{apr}-\code{opt}|}{\code{opt}}\leq \varepsilon(n)$$
+}
+
+\thmdefin{Úplně polynomiální aproximační schéma}{
+\emph{Úplně polynomiální aproximační schéma} pro optimalizační problém je aproximační algoritmus, který pro libovolné zadání daného problému (velikosti $n$) a číslo $\varepsilon > 0$  řeší problém s relativní chybou $\varepsilon$ v polynomiálním čase vzhledem k $n$ a vzhledem k $\frac{1}{\varepsilon}$.
+}
+
+\chapter{Algoritmus A*}
+  \section{Úloha nejkratší cesty}
+    \thmdefin{A*-graf}{
+    \label{def-agraf}
+    Buď $G^*=\nt{V^*,E^*,c^*}$ vážený orientovaný konečný graf s nezáporným ohodnocením hran $c^*:E^* \-> \R+$ (kde $\R+$ označuje množinu nezáporných reálných čísel). Buď $s^* \in V^*$, $T^* \subseteq V^*, T^* \neq \emptyset$ takové, že $\forall v \in V^*$ existuje cesta  z $s^*$ do $v$ a $\forall v \in V^* \setminus T^*$ existuje cesta z $v$ do alespoň jednoho $t \in T^*$. Pětici $\nt{V^*,E^*,c^*,s^*,T^*}$ budeme nazývat \emph{A*-graf}, $V^*$ množina \emph{stavů}, $s^*$~\emph{startovní} stav a $T^*$ množina \emph{cílových stavů}.
+    }
+    
+    Termín \emph{stav} zde zavádíme pro odlišení od termínu vrchol, který budeme používat v zadání některých řešených optimalizačních problémů grafového charakteru v další kapitole (a také v souvislosti s tím, že algoritmus A* byl původně konstruován pro řízené prohledávání \emph{stavového prostoru} v úlohách umělé inteligence).
+
+    V dalším textu budeme symboly $V^*,E^*,c^*,s^*,T^*$ značit příslušné součásti nějakého A*-grafu.
+
+    \thmdefin{Minimální cesta}{
+     \emph{Minimální cestou do stavu} $v \in V^*$ rozumíme cestu s minimální délkou ze všech cest z $s^*$ do $v$. Délku takové cesty budeme označovat $g(v)$.
+
+     \emph{Minimální cestou} v A*-grafu rozumíme cestu z $s^*$ do nějakého cílového stavu $t \in T^*$ délky $\min \{ g(t) \| t \in T^* \}$. Této délce budeme říkat \emph{optimum}.
+    }
+
+    \eject
+    \thmdefin{Heuristika}{
+     \emph{Heuristika} je funkce $h : V^* \-> \R+$, která je vždy menší nebo rovna délce minimální cesty z $v \in V^*$ jako startovního stavu do $T^*$.
+     \emph{Perfektní heuristika} je taková heuristika, která je rovna délce minimální cesty. Tuto heuristiku budeme označovat $h^*$.
+     Pro každou heuristiku platí: $\forall v \in V: h(v) \leq h^*(v)$.
+    }
+
+    \thmdefin{Konzistentní heuristika}{
+     \emph{Konzistentní heuristika} je heuristika $h$, pro kterou platí:
+      \begin{equation} \label{eq-konzistence}
+       \forall \nt{v,w} \in E^* : h(v) \leq c^*(\nt{v,w}) + h(w).
+      \end{equation}
+    }
+
+    Tedy konzistentní heuristika je dolní odhad, který se postupným přibližováním k cíli nezhoršuje.
+    
+    \thmlemma{Konzistence a dolní mez}{
+    \label{lemma-nulove}
+    Pokud funkce $h : V^* \-> \R+$, splňuje nerovnost (\ref{eq-konzistence}) a platí 
+    $\forall t \in T^*: h(t) =~0$, 
+    pak je $h$ konzistentní heuristika, tj. splňuje též podmínku 
+    \[ \forall v \in V^*: h(v) \leq h^*(v). \]
+    \dukaz{
+    Pro libovolný stav $v \in V^*$ uvažujme minimální cestu do $T^*$. Tato cesta $\nt{v, v_1, \ldots, v_k, t}$ má délku $h^*(v)$. Chceme dokázat, že $h(v) \leq h^*(v)$.
+    
+    Pro všechny hrany $\nt{w,z}$ minimální cesty podle (\ref{eq-konzistence}) platí:
+    \[ h(w) - h(z) \leq c^*(\nt{w,z}). \]
+    Pokud všechny tyto nerovnosti sečteme, získáme:
+    \[ h(v) - h(t) \leq h^*(v). \] }
+    }
+
+    \thmdefin{Silnější heuristika}{
+     Řekneme, že heuristika $h_1$ je \emph{silnější} než heuristika $h_2$, pokud \[\forall v \in V^*: h_1(v) \geq h_2(v).\] 
+    }
+
+    \thmlemma{Maximum heuristik}{
+    \label{lemma-heur-max}
+     Jsou-li $h_1, \ldots, h_n$ konzistentní heuristiky, pak funkce 
+     \[ h(v)=\max(h_1(v), \ldots, h_n(v)), \forall v \in V^*\] 
+     dává konzistentní heuristiku, která je silnější než $h_1, \ldots, h_n$.
+}
+    \dukaz{
+    Stačí ukázat, že $h$ je konzistentní. Nechť $v,w \in V^*$ jsou libovolné stavy takové, že $\nt{v,w} \in E^*$. Protože $\exists i \in \{ 1, \ldots, n \}: h(v) = h_i(v)$ a $h_i$ je konzistentní heuristika, musí platit
+    \[ h(v) = h_i(v) \leq c^*(v,w) + h_i(w) \leq c^*(v,w) + h(w). \]
+    }
+
+    \thmdefin{Odhad}{
+     Funkci $f : V^* \-> \R+ \, \forall v \in V^*: f(v) = g(v) + h(v)$, kde $h$ je heuristika, budeme nazývat \emph{odhad} (délky minimální cesty z $s^*$ do $T^*$ přes stav $v$).
+     \emph{Perfektní odhad} budeme označovat $f^* \, \forall v \in V^*: f^*(v) = g(v) + h^*(v)$.
+    }
+
+    \thmpoznone{
+    Platí: $\exists t \in T^*: g(t) = h^*(s^*)$, toto $g(t)$ je optimum -- délka hledané minimální cesty. Pro všechny stavy $v$ na této hledané cestě musí platit $f^*(v) = h^*(s^*)$.
+    }
+
+  \section{Popis A*}
+    A* je algoritmus na hledání minimální cesty v A*-grafu s použitím heuristiky. Vzhledem k navrženým aplikacím se omezíme na variantu algoritmu \emph{A* pro konzistentní heuristiky}. Algoritmus A* v A*-grafu najde (s využitím libovolné konzistentní heuristiky $h$) minimální cestu ze startovního stavu $s$ do množiny cílových stavů $T^*$.
+
+    Pro použití algoritmu A* není třeba zadávat celý vstupní graf, neboť A* prohledává vstupní graf (generuje jeho potřebnou část) s použitím následujících funkcí:
+
+%TODO srazit
+    \thmdefin{A*-graf zadaný funkcemi}{
+    \label{def-agraf-fce}
+    Pro A*-graf $\nt{V^*,E^*,c^*,s^*,T^*}$ definujme funkce:
+    \begin{description}
+     \item[\code{start()}] = $s^*$.
+     \item[\code{cil($v$)}] rozhodne, zda platí $v \in T^*$.
+     \item[\code{naslednici($v$)}] = množina následníků stavu $v$, tj. $\{ w \in V^* \| \nt{v,w} \in E^* \}$.
+     \item[\code{ohodnoceni($v,w$)}] = $c^*(\nt{v,w})$.
+     %\item[heuristika($v$)] = $h(v)$.
+    \end{description}
+    }
+
+%    \thmpozorone{
+%    Definice A*-grafu \ref{def-agraf} a \ref{def-agraf-fce} jsou ekvivalentní.
+%    }
+%    \dukaz{
+%    \begin{enumerate}
+%     \item $\Rightarrow$: funkce jsou definovány pomocí A*-grafu.
+%     \item $\Leftarrow$: Z definice A*-grafu plyne, že lze vygenerovat množiny $V,E$ pomocí funkce $\code{naslednici}$ ze startovního stavu $s=\code{start()}$ (protože všechny stavy jsou z $s$ dosažitelné). Nalezení $c,T$ je zřejmé.
+%    \end{enumerate}
+%    }
+  
+  \thmpoznone{
+%     Pokud máme funkce z definice \ref{def-agraf-fce} zadané libovolně, pak při splnění určitých podmínek toto zadání odpovídá A*-grafu z definice \ref{def-agraf}. Množiny $V,E$ lze vygenerovat pomocí funkce $\code{naslednici}$ ze startovního stavu $s=\code{start()}$ (přičemž je jasně splněno že každý stav z $V$ je dosažitelný z $s$). Množinu $T$ vygenerujeme pomocí funkce $\code{cil}$. Pak pokud $T \neq \emptyset$ a $\forall \nt{v,w} \in E: \code{ohodnoceni($v,w$)} \in \R+$, vyhovuje tento graf definici \ref{def-agraf}.
+%     
+    Z definice \ref{def-agraf-fce} A*-grafu zadaného funkcemi plyne, že lze vygenerovat množiny $V^*,E^*$ pomocí funkce $\code{naslednici}$ ze startovního stavu $s^*=\code{start()}$ (protože všechny stavy jsou z $s^*$ dosažitelné). Pokud $T^* \neq \emptyset$ a $\forall \nt{v,w} \in E^*: \code{ohodnoceni($v,w$)} \in \R+$, vyhovuje tento graf definici \ref{def-agraf}.
+    }
+
+    Vstupem pro algoritmus A* je A*-graf zadaný funkcemi a konzistentní heuristika (zadaná funkcí \code{heuristika()}). A* si pro každý (vygenerovaný) stav pamatuje délku aktuálně nejkratší cesty ze startovního stavu $s^*$.
+
+    \thmdefin{\code{delka}, \code{odhad}}{
+      Aktuální (z hlediska běhu A*) délku nejkratší cesty ze startovního stavu do $v \in V^*$ budeme značit \code{delka}($v$).
+      Aktuální (z hlediska běhu A*) odhad délky nejkratší cesty ze startovního stavu do $T^*$ přes $v \in V^*$ je \[ \code{odhad}(v)~=~\code{delka}(v)~+~h(v). \]
+    }
+
+    Cílem algoritmu A* je tedy postupně generovat stavy a přibližovat hodnotu \code{delka} hodnotě $g$. Na závěr musí najít takový cílový stav $t$, jehož $g(t)$ je minimální, a přitom má zajistit, že $g(t) = $\code{delka}$(t)$.
+
+    Popis práce algoritmu A*:\par
+
+    A* používá ke své práci množinu \emph{\uv{otevřených} stavů} \code{open} a množinu \emph{\uv{uzavřených} stavů} \code{closed}. Na začátku je v \code{open} startovní stav $s^*$. V každém kroku A* vyjme z \code{open} stav s minimální hodnotou \code{odhad} a vloží ho do \code{closed} (tedy uzavře tento stav). Pak spočte hodnoty \code{delka} a \code{odhad} pro všechny jeho následníky (generované funkcí \code{naslednici}) a vloží je do \code{open} (tomu budeme říkat \emph{expanze}).
+
+    Výpočet hodnoty \code{delka} probíhá podobně jako v Dijkstrově algoritmu.
+
+    \begin{alg}[A*] \ent
+    \label{alg-astar}
+    \begin{algorithmic}
+    \STATE I. Inicializace
+    \STATE $s^* := \code{start()}$
+    \STATE $\code{delka}(s^*) := 0$
+    \STATE $\code{odhad}(s^*) := \code{heuristika(w)}$
+    \STATE $\code{open} := \{ s^* \}$
+    \STATE $\code{closed} := \emptyset$
+    \STATE II. Hlavní cyklus
+    \WHILE{$\code{open} \neq \emptyset$}
+    \STATE II.a) Selekce
+    \STATE $v := x \in \code{open}$ takové, že $\code{odhad}(x) = \min\limits_{w \in \code{open} } \{ \code{odhad}(w) \}$
+    \STATE $\code{open} := \code{open} \setminus \{ v \}$
+    \STATE $\code{closed} := \code{closed} \cup \{ v \}$
+    \STATE II.b) Terminalita
+    \IF{$\code{cil}(v)$}
+    \PRINT Nalezeno optimum ($\code{delka}(v)$)! KONEC
+    \ENDIF
+    \STATE II.c) Expanze
+    \FORALL{$w \in \code{naslednici(v)}$}
+    \IF{$w \notin \code{closed} \: \& \: w \notin \code{open}$}
+    \STATE $\code{delka}(w) := \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    \STATE $\code{odhad}(w) := \code{delka}(w) + \code{heuristika}(w)$
+    \STATE $\code{open} := \code{open} \cup \{ w \}$
+    \ENDIF
+    \IF{$w \notin \code{closed} \: \& \: w \in \code{open}$}
+    \IF{$\code{delka}(w) > \code{delka}(v) + \code{ohodnoceni}(v,w)$}
+    \STATE $\code{odhad}(w) := \code{odhad}(w) - \code{delka}(w) + \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    \STATE $\code{delka}(w) := \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    %\STATE $\code{odhad}(w) := \code{delka}(w) + \code{heuristika}(w)$
+    \ENDIF
+    \ENDIF
+    \ENDFOR
+    \ENDWHILE
+    \end{algorithmic}
+    \end{alg}
+
+    \thmpozn{Složitost algoritmu \ref{alg-astar}}{
+    Počet průchodů hlavním cyklem (a tedy počet expanzí) může být v nejhorším případě stejný jako počet necílových stavů A*-grafu. Při každém průchodu cyklem musíme vyhledat minimální prvek v \code{open}, zařadit ho do \code{closed} a dále vygenerovat jeho následníky, u každého z nich zjistit, zda se nenachází v open nebo closed a pokud je nový, vypočítat heuristiku. 
+    %Složitost jednotlivých kroků závisí na konkrétní implementaci, podrobněji se jí budeme věnovat v sekci \ref{sect-prog-slozitost}.
+    Důležité je pozorování, že heuristiku počítáme pro každý stav pouze jednou, a to když ho vygenerujeme poprvé. Vyhledání přítomnosti prvku v open nebo closed musíme ale provádět opakovaně, v nejhorším případě pro každou hranu \linebreak A*-grafu.
+    Složitost A* je tedy 
+    \[O(|V^*| \cdot (\code{selekce} + \code{heuristika}) + |E^*| \cdot \code{vyhledani}).\]
+    
+
+Pokud by A*-graf měl tu vlastnost, že by pro stupně všech stavů platilo 
+\begin{equation}
+\label{eq-max-stupen}
+\forall v \in V^* : \deg(v) \leq \log(|V^*|),
+\end{equation} 
+pak by se v každé expanzi vygenerovalo maximálně $\log(|V^*|)$ následníků. To znamená, že by se celková složitost zlepšila na  
+\[ O(|V^*| \cdot (\code{selekce} + \code{heuristika} +  log(|V^*|) \cdot \code{vyhledani})). \]
+Poznamenejme, že všechny A*-grafy řešených problémů (uvedených v kapitole 3) tuto vlastnost mají.
+}
+  \section{Vlastnosti A*}
+
+    \thmlemma{O uzavírání stavů}{
+     \label{lemma-uzavirani-stavu} 
+     Ve chvíli, kdy A* uzavírá stav $v$ (vybere jej z open a zařadí do closed), je \code{delka}$(v) = g(v)$.
+    }
+    \dukaz{viz \cite{nilsson}, str. 63, lemma 3-2.}
+
+    \thmpoznone{
+     Pokud by byla heuristika nekonzistentní, lemma \ref{lemma-uzavirani-stavu} neplatí!
+    }
+
+    \thmduslone{
+     \label{dusl-uzavirani-ciloveho-stavu}
+     Pokud se poprvé uzavírá cílový stav $t \in T^*$, neexistuje cesta menší délky do jiného z cílových stavů.
+    }
+
+    \thmveta{Korektnost A*}{
+     Výsledek A* je vždy optimum -- délka minimální cesty z $s^*$ do $T^*$.
+    }
+    \dukaz{Vyplývá z důsledku \ref{dusl-uzavirani-ciloveho-stavu}.}
+    
+
+    \thmpozn{Dijkstrův algoritmus}{
+    \label{pozn-nulova-heur}
+     Pokud v A* použijeme nulovou heuristiku ($\forall v \in V^*: h_0(v)=0$), chová se A* stejně jako Dijkstrův algoritmus. (Až na to, že nepočítá minimální cesty do všech stavů, ale pouze minimální cestu do množiny cílových stavů a do těch stavů, do nichž je cesta kratší než toto optimum.)
+    }
+    
+    \thmlemma{O monotónnosti odhadů uzavíraných stavů}{
+    \label{lemma-uzavirani-monotonie}
+    Hodnota $\min\limits_{w \in \code{open} } \{ \code{odhad}(w) \}$, během práce algoritmu A* neklesá a blíží se (zdola) k hodnotě optima.
+    }
+    \dukaz {
+    viz \cite{nilsson}, str. 64, lemma 3-3 a pozorování, že díky konzistenci heuristiky nejsou odhady stavů zařazovaných do \code{open} menší, než byl odhad uzavíraného stavu.
+    }
+
+    \thmlemma{Síla heuristiky}{
+    \label{lemma-sila-heuristiky}
+     Silnější heuristika umožňuje získat optimum prohledáním (vygenerováním) menší části grafu (za předpokladu, že stavy se stejným odhadem jsou uzavírány vždy ve stejném pořadí).
+    }
+    \dukaz{viz \cite{nilsson}, str. 64, theorem 3-2.}
+
+  \section{Aproximace}
+
+    \thmdefin{Aproximace}{
+     \emph{Dílčí aproximace} $a: V^* \to \R+$ je \uv{duální} funkce k heuristice. Pro daný stav $v$ dá horní odhad délky nejkratší cesty do cílového stavu. Pro dílčí aproximaci $a$ tedy platí $\forall v \in V^*: a(v) \geq h^*(v)$. 
+
+     Hodnotu $g(v) + a(v)$ budeme nazývat \emph{aproximací} (minimální cesty z $s^*$ do $T^*$ přes stav $v$).
+    }
+
+    \thmpozn{Heuristikou generovaná aproximace}{
+    \label{pozn-aproximace-0}
+     \emph{Heuristikou generovanou dílčí aproximaci} lze definovat na obecném grafu pro A* s danou heuristikou, a to hladovým procházením do hloubky podle minimálního odhadu následníků.
+     
+     Poznamenejme, že tato aproximace nemusí být polynomiální, i když daná heuristika polynomiální je. Heuristika se při výpočtu této aproximace může totiž v nejhorším případě volat i $|E^*|$-krát.
+    }
+
+    \thmlemma{Aproximace může být optimum}{
+    \label{lemma-aproximace-optimum}
+     Pokud je v nějakém kroku algoritmu A* hodnota nejmenší známé aproximace stejná jako $\min\limits_{w \in \code{open}} \{ \code{odhad}(w) \}$, pak je tato aproximace optimem.
+    }
+    \dukaz{
+    Plyne z toho, že podle lemmatu \ref{lemma-uzavirani-monotonie} vždy platí 
+    \[ \min\limits_{w \in \code{open}} \{ \code{odhad}(w) \} \leq \code{opt} \leq \code{apr}. \]
+    }
+    
+    \thmpoznone{
+      Z důkazu lemmatu \ref{lemma-aproximace-optimum} též plyne, že v každém kroku algoritmu lze \emph{aktuální poměrovou chybu} nejmenší známé aproximace shora omezit poměrem:
+      \[ \frac{\code{apr}}{\code{opt}} \leq \frac{\code{apr}}{\min\limits_{w \in \code{open} } \{ \code{odhad}(w) \} }, \]
+      a tak posoudit kvalitu dosaženého řešení například při přerušení výpočtu.
+    }
+    
+    \thmlemma{Ořezávání stavů pomocí aproximace}{
+    \label{lemma-aprox-orez}
+     Stavy, jejichž odhad je větší než (nejmenší známá) aproximace, nemusíme vůbec brát v úvahu (tj. A* je nemusí zařazovat do $\code{open}$ ani $\code{closed}$). I pak zůstane A* korektní.
+     
+     Navíc, pokud si budeme pamatovat hodnotu (a příslušnou cestu) pro nejmenší známou aproximaci, nemusíme brát v úvahu ani stavy, které mají stejný odhad.
+    }
+    \dukaz{
+    Podle lemmatu \ref{lemma-uzavirani-monotonie} jsou uzavírány pouze ty stavy $v \in V^*$, jejichž $\code{odhad}(v)~\leq~\code{opt}~\leq~\code{apr}$. Tudíž by na stavy, jejichž odhad je větší než aproximace, stejně nedošla řada.
+    
+    Pokud se odhad stavu rovná aproximaci, pak buď je to optimum, a tedy jedno z řešení -- my už ale jedno řešení známe (tím je ta aproximace), a to nám stačí. Pokud aproximace není optimum, znamená to, že odhad stavu je větší než optimum, a tudíž nás nemusí zajímat.
+    }
+
+    \begin{alg}[A* s aproximací] \ent
+    \label{alg-aprox}
+    \begin{algorithmic}
+    \STATE I. Inicializace
+    \STATE $s^* := \code{start}()$
+    \STATE $\code{delka}(s^*) := 0$
+    \STATE $\code{odhad}(s^*) := \code{heuristika}(s^*)$
+    \STATE $\code{open} := \{ s^* \}$
+    \STATE $\code{closed} := \emptyset$
+    \STATE $\code{apr} := \code{aproximace}(s^*)$
+    \STATE II. Hlavní cyklus
+    \WHILE{$\code{open} \neq \emptyset$}
+    \STATE II.a) Selekce
+    \STATE $v := x \in \code{open}$ takové, že $\code{odhad}(x) = \min\limits_{w \in \code{open} } \{ \code{odhad}(w) \}$
+    \STATE $\code{open} := \code{open} \setminus \{ v \}$
+    \STATE $\code{closed} := \code{closed} \cup \{ v \}$
+    \STATE II.b) Aproximace
+    \IF{$\code{delka}(v) + \code{aproximace}(v) < \code{apr}$}
+    \STATE $\code{apr} = \code{delka}(v) + \code{aproximace}(v)$
+    %\STATE $\code{open} := \{ x \in \code{open} \| \code{odhad}(x) < \code{apr} \}$
+    %\STATE $\code{closed} := \{ x \in \code{closed} \| \code{odhad}(x) < \code{apr} \}$
+    \ENDIF
+    \STATE II.c) Terminalita
+    \IF{$\code{odhad}(v) = \code{apr}$} 
+    \PRINT Nalezeno optimum - aproximace ($\code{apr}$)! KONEC
+    \ENDIF
+    \IF{$\code{cil}(v)$}
+    \PRINT Nalezeno optimum ($\code{delka}(v)$)! KONEC
+    \ENDIF
+    \STATE II.d) Expanze
+    \FORALL{$w \in \code{naslednici}(v)$}
+    \IF{$w \notin \code{closed} \: \& \: w \notin \code{open}$}
+    \STATE $\code{delka}(w) := \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    \STATE $\code{odhad}(w) := \code{delka}(w) + \code{heuristika}(w)$
+    \IF{$\code{odhad}(w) < \code{apr}$} 
+    \STATE $\code{open} := \code{open} \cup \{ w \}$
+    \ENDIF 
+    \ENDIF
+    \IF{$w \notin \code{closed} \: \& \: w \in \code{open}$}
+    \IF{$\code{delka}(w) > \code{delka}(v) + \code{ohodnoceni}(v,w)$}
+    \STATE $\code{odhad}(w) := \code{odhad}(w) - \code{delka}(w) + \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    \STATE $\code{delka}(w) := \code{delka}(v) + \code{ohodnoceni}(v,w)$
+    %\STATE $\code{odhad}(w) := \code{delka}(w) + \code{heuristika}(w)$
+    \ENDIF
+    \ENDIF
+    \ENDFOR
+    \STATE II.e) Terminalita
+    \IF{$\code{open} = \emptyset$} 
+    \PRINT Nalezeno optimum - aproximace ($\code{apr}$)! KONEC
+    \ENDIF
+    \ENDWHILE
+    \end{algorithmic}
+    \end{alg}
+
+    
+\thmpoznone{
+    V algoritmu \ref{alg-aprox} jsou oproti algoritmu \ref{alg-astar} navíc části II.b) a II.e); část II.c) je rozšířena o kontrolu, zda aproximace není optimum, a část II.d) je rozšířena o kontrolu, zda odhad prvku není větší nebo roven aproximaci.
+    
+    Aproximaci není nutno volat v každé iteraci algoritmu, ale například jen za určitých podmínek (důsledek lemmatu \ref{lemma-aprox-orez}).
+    }
+    
+    \thmpozn{Složitost algoritmu \ref{alg-aprox}}{
+    Složitost A* se změní pouze tak, že pro každý stav spočítáme aproximaci.
+    Složitost A* s aproximací je tedy 
+\[ O(|V^*| \cdot (\code{selekce} + \code{heuristika} + \code{aproximace}) + |E^*| \cdot \code{vyhledani}). \]
+    Podobně jako pro algoritmus \ref{alg-astar}, pokud by A*-graf splňoval vlastnost (\ref{eq-max-stupen}), byla by složitost algoritmu A* s aproximací 
+\[ O(|V^*| \cdot (\code{selekce} + \code{heuristika} + \code{aproximace} +  log(|V^*|) \cdot \code{vyhledani})). \]
+}
+    
+%     \thmpoznone{
+%      
+%     }
+
+\chapter{Vybrané optimalizační NP-úplné problémy a jejich řešení pomocí A*}
+%   Použití A* pro optimalizační NP-úplné problémy.
+%   Graf pro A* bude stavový prostor problému. Stačí nadefinovat funkce popisující graf.
+%   A*-graf.
+%   Ilustrační příklad: TSP pomocí dynam. programování.
+%   \cite{algorithms}, str. ???
+   
+  % \begin{defin}[Rozhodovací problém, Optimalizační problém] 
+  % Každý problém je definován vstupem a očekávaným výstupem, který musí splňovat určitá pravidla. Rozhodovací problém má výstup pouze ANO/NE. Optimalizační problém vydá ze všech možných přípustných řešení to nejlepší (nejmenší či největší). 
+  % \end{defin}
+
+%   Každý problém obsahuje:
+%   definice problému, rešerše, převedení problému na úlohu minimální cesty, definování grafu pro A*, nějaké vlastnosti toho grafu, převod řešení A* na řešení problému (jako tvrzení),
+%   heuristiky a důkaz konzistence, aproximace, shrnutí: funkce pro A*.
+
+  Přehled NP-úplných problémů a algoritmů pro jejich řešení lze nalézt v řadě monografií, například \cite{np, algorithms, aprox, garey, korte}; kde jsou též podrobně definovány a studovány jejich vlastnosti.
+    
+  Výběr čtyř optimalizačních NP-těžkých problémů pro demonstraci řešení pomocí A* byl veden snahou zahrnout různorodé problémy, které by alespoň zčásti reprezentovaly spektrum lišících se typů. Vybrány byly: problém obchodního cestujícího, problém vrcholového pokrytí, problém batohu a problém rozvržení úloh.
+  
+  Pro každý zvolený problém je definováno jeho převedení na A*-graf a úlohu minimální cesty, jsou navrženy heuristiky s důkazy jejich konzistence a možné aproximace. Shrnutí pak obsahuje funkce pro zadání aplikace A* ve vyvinutém programovém prostředí.
+  
+  Je nutno podotknout, že heuristiky a aproximace mají pro využití v algoritmu A* smysl pouze tehdy, pokud mají polynomiální složitost.
+  
+  \eject
+  
+  \section{Problém obchodního cestujícího (TSP)}
+
+    \subsection{Zadání}
+     Graf s nezáporným ohodnocením hran $G=\nt{V,E,c}$, hledáme \emph{nejkratší hamiltonovskou kružnici}. 
+     
+    Důkaz NP-úplnosti problému viz \cite{garey} str. 35-36, 56-60 (Theorem 3.4).
+    
+    Problém obchodního cestujícího (TSP) je standardním příkladem \linebreak NP-úplného problému, který zůstává NP-úplný i při omezení na ohodnocení splňující trojúhelníkovou nerovnost nebo na ohodnocení hran pouze hodnotami 1 a 2, viz např \cite{garey}. To je důsledek toho, že \emph{TSP} je \emph{silně NP-úplný}. Pro jeho řešení byla zkonstruována nepřeberná řada algoritmů viz například \cite{korte}, kap. 21. Převod na A*-graf vychází z principů \emph{dynamického programování} \cite{algorithms}, \cite{ivanek}. 
+%     a potenciálně umožňuje využít jako heuristiky \emph{dolní meze} vyvinuté v různých metodách větví a mezí pro řešení TSP.
+
+    \thmdefin{A*-graf pro problém TSP}{
+     Zvolme libovolně startovní vrchol $s \in V$ a definujme:
+\[ \begin{array}{l}
+     V^* = \{ \nt{M,v} \| M \subseteq V, s \in M, v \in V \setminus M \} \cup \{ \nt{\emptyset,s},\nt{V,s} \}, \\
+     E^* = \{ \nt{\nt{M,v},\nt{M \cup \{v\},w}} \| \nt{v,w} \in E, \nt{M,v}, \nt{M \cup \{v\},w} \in V^* \}, \\
+     c^*(\nt{\nt{M,v},\nt{M \cup \{v\},w}}) = c(\nt{v,w}), \\
+     s^* = \nt{\emptyset,s}, \\
+     T^* = \{ \nt{V,s} \}.
+     \end{array} \]
+    }
+    
+   Každá dvojice $\nt{M,v}; M \subseteq V, s \in M, v \in (V \setminus M)$ představuje podúlohu nalezení nejkratší cesty, která začíná ve startovním vrcholu $s$, projde všechny ostatní vrcholy z $M$ právě jednou a končí ve vrcholu $v$. Mimoto dvojice $\nt{\emptyset,s}$ představuje startovní stav a dvojice $\nt{V,s}$ představuje celkovou úlohu nalezení nejkratší hamiltonovské kružnice.
+
+    \thmlemma{Převod TSP na A*-graf}{
+     Nalezení minimální cesty v A*-grafu $\nt{V^*,E^*,c^*,s^*,T^*}$ je ekvivalentní s nalezením nejkratší hamiltonovské kružnice v grafu $G$ s ohodnocením $c$.
+    }
+    \dukaz{
+    Každá cesta v A*-grafu z $s^*$ do $T^*$
+    \[ \nt{\emptyset,s}, \nt{\{s\}, v_1}, \nt{\{s, v_1\}, v_2}, \ldots, \nt{M_k, v_k}, \ldots, \nt{V \setminus \{v_{n-1}\}, v_{n-1}}, \nt{V,s} \]
+    odpovídá hamiltonovské kružnici $\nt{s, v_1, \ldots, v_{n-1}}$ v grafu $G$, přičemž délka této cesty je délkou kružnice 
+    \[ c(\nt{s,v_1}) + \suma{i=1}{n-2} c(\nt{v_i, v_{i+1}}) + c(\nt{v_{n-1},s}). \]
+     Naopak každé hamiltonovské kružnici v $G$ odpovídá taková cesta v A*-grafu.
+    }
+
+  \thmpozn{Velikost A*-grafu pro TSP}{
+  Pro graf $G$ s $n$ vrcholy má příslušný A*-graf problému obchodního cestujícího $2 + (n-1) \cdot 2^{n-2}$ stavů (viz \cite{ivanek}).
+  }
+
+    \subsection{Heuristiky}
+    \label{sect-tsp-heur}
+    \thmdefin{1. heuristika pro TSP}{
+     U každého vrcholu, ze kterého obchodní cestující ještě nevyšel, vybereme hranu s minimálním ohodnocením. Součet těchto ohodnocení je heuristika. Formálně $\overrightarrow{h}(\nt{V,s}) = 0$ a pro $M \neq V$
+     
+     \[
+      \overrightarrow{h}(\nt{M,x}) = \sum_{v \in V \setminus M} \min \{ c(\nt{v,w}) \| w \in (V \setminus ( M \cup \{ x \} )) \cup \{ s \} \}.
+     \]
+    }
+     \thmtvrzone{
+      Funkce $\overrightarrow{h}$ je konzistentní heuristika.
+     }
+     \dukaz{
+    Stačí pro všechny stavy $\nt{M,v} \in V^*$ dokázat
+    \[ \overrightarrow{h}(\nt{M,x}) \leq \overrightarrow{h}(\nt{M \cup \{x\},y}) + c(\nt{x,y}) \]
+    Z definice heuristiky $\overrightarrow{h}$ plyne:
+     \begin{multline*}
+      \overrightarrow{h}(\nt{M,x}) - \overrightarrow{h}(\nt{M \cup \{x\},y}) = \\
+      = \sum_{v \in V \setminus M} \min \{ c(\nt{v,w}) \| w \in (V \setminus ( M \cup \{ x \} )) \cup \{ s \} \} - \\
+      - \sum_{v \in V \setminus (M \cup \{x\})} \min \{ c(\nt{v,w}) \| w \in (V \setminus ( M \cup \{ x,y \} )) \cup \{ s \} \} \leq \\
+      \leq \min \{ c(\nt{x,w}) \| w \in (V \setminus ( M \cup \{ x \} )) \cup \{ s \} \} \leq c(\nt{x,y})
+     \end{multline*}
+     protože 
+     \[ (V \setminus M) \setminus (V \setminus (M \cup \{x\})) = \{x\}. \]
+     Společně s tím, že $\overrightarrow{h}(\nt{V,s}) = 0$, je podle lemmatu \ref{lemma-nulove} funkce $\overrightarrow{h}$ konzistentní heuristika.
+    }
+    %tedy
+    % \[ \overrightarrow{h}((M,x)) - \overrightarrow{h}((M \cup \{x\},y)) \leq c(x,y) \]
+
+     \thmdefin{2. heuristika pro TSP}{
+     U každého vrcholu, kam obchodní cestující ještě nevstoupil, vybereme hranu s minimálním ohodnocením. Součet těchto ohodnocení je heuristika. Formálně $\overleftarrow{h}(\nt{V,s}) = 0$ a pro $M \neq V$
+     \[
+      \overleftarrow{h}(\nt{M,x}) = \sum_{w \in (V \setminus ( M \cup \{ x \} )) \cup \{ s \}} \min \{ c(\nt{v,w}) \| v \in V \setminus M \}.
+     \]
+     }
+     \thmtvrzone{
+      Funkce $\overleftarrow{h}$ je konzistentní heuristika.
+     }
+     \dukaz{
+     Důkaz konzistence je analogický předchozímu.
+     }
+     
+    \thmpozorone{
+    Heuristika $\overrightarrow{h}$ není silnější než heuristika $\overleftarrow{h}$ a heuristika $\overleftarrow{h}$ není silnější než heuristika $\overrightarrow{h}$.
+    }
+    \dukaz{
+    Jako protipříklad uvažujme toto zadání problému obchodního cestujícího: úplný graf $\nt{V,E,c}$ s ohodnocením
+    \[ \forall \nt{s,v} \in E: c(\nt{s, v}) = 1, \mbox{ kde $s \in V$ je startovní vrchol,} \]
+    \[ c(\nt{v,w}) = 2 \mbox{ jinde }. \]
+
+    Pak pro startovní stav $\nt{\emptyset,s}$ je
+    \[ \overrightarrow{h}(\nt{\emptyset,s}) = 2 \cdot (|V|-1) + 1, \]
+    \[ \overleftarrow{h}(\nt{\emptyset,s}) = |V|, \]
+    takže $\overleftarrow{h}$ není silnější než $\overrightarrow{h}$.
+
+    Analogický protipříklad ukáže, že také $\overrightarrow{h}$ není silnější než $\overleftarrow{h}$.
+    }
+    
+     \thmdefin{3. heuristika pro TSP}{
+      \label{def-tsp-heur-3}
+     Kombinací obou heuristik získáme silnější heuristiku, která vede k větší redukci prohledané části A*-grafu (viz lemma \ref{lemma-sila-heuristiky}):
+    \[ \overline{h}(x) = max \{ \overrightarrow{h}(x),\overleftarrow{h} (x) \}. \]
+    }
+    
+    \subsection{Aproximace}
+    \label{sect-tsp-aprox}
+    Hladově po minimálních hranách (horší aproximace než heuristikou generovaná):
+
+    Doplňujeme cestu na hamiltonovskou kružnici tak, že u každého vrcholu vybereme hranu, která má nejmenší ohodnocení z hran, které vedou do vrcholů, kde obchodní cestující ještě nebyl.
+
+    \subsection{Funkce pro A*}
+    \label{sect-tsp-func}
+    \begin{compactdesc}
+     \item[start()] $=(\emptyset, s)$.
+     \item[cil($x$)] uspěje pokud $x=\nt{V,s}$.
+     \item[naslednici($\nt{M,v}$)] $= \{ \nt{M \cup \{v\}, w} \| \nt{v,w} \in E, w \notin M \}$ pro $M \cup \{v\} \neq V$, \\
+      $= \{ \nt{V,s} \}$ jinak.
+     \item[oceneni($\nt{M,v},\nt{M \cup \{v\},w}$)] $= c(\nt{v,w})$.
+     \item[heuristika($x$)] viz \ref{sect-tsp-heur}
+     \item[aproximace($x$)] viz \ref{sect-tsp-aprox}
+    \end{compactdesc}
+
+  \section{Vrcholové pokrytí (VP)}
+    \subsection{Zadání}
+    Pro neorientovaný graf $G=\nt{V,E}$ hledáme množinu vrcholů $X \subseteq V$ takovou, že každá hrana z $E$ je pokrytá alespoň jedním vrcholem z $X$. Chceme, aby tato \emph{množina pokrývajících vrcholů byla co nejmenší}. 
+    %(Tento problém jsem vybral kvůli jeho přímé souvislosti se SATem.)
+
+    Důkaz NP-úplnosti problému viz \cite{garey} str. 54-56 (Theorem 3.3).
+    
+    Vrcholové pokrytí bylo vybráno jako klasická NP-úplná úloha z teorie grafů, která je minimalizační (je duální k úloze hledání maximální nezávislé množiny vrcholů). Na rozdíl od ostatních v této práci řešených problémů je u vrcholového pokrytí \emph{uniformní ohodnocení hran}. V příslušném A*-grafu tak mají všechny cesty z počátečního do libovolného stavu stejnou délku. Třída cílových stavů (pokrývajících množin vrcholů) může být rozsáhlá -- je uzavřená na nadmnožiny, které ovšem nebudou algoritmem A* generovány.
+    
+    Pro VP existuje 2-aproximační algoritmus, tj. aproximace, která má poměrovou chybu $\rho(n)=2$, viz aproximace (\ref{sect-vp-aprox}.2).
+
+    \eject
+    
+    \thmdefin{A*-graf pro problém VP}{
+    Pro každou množinu vrcholů $X \subseteq V$ označme množinu nepokrytých hran: \[N(X)= \{ \{v,w\} \in E \| V \cup \{v,w\} = \emptyset \}\]
+    Definujme:
+\[ \begin{array}{l}
+     V^* = \{ X \| X \subseteq V \} = \P(V), \\
+     E^* = \{ \nt{X, X \cup \{v\}} \| v \in V \setminus X \}, \\
+     c^*(\nt{X, X \cup \{v\}}) = 1, \\
+     s^* = \emptyset, \\
+     T^* = \{ X \| N(X) = \emptyset \}.
+     \end{array} \]
+    }
+
+    \thmlemma{Převod VP na A*}{
+     Nalezení minimální cesty v A*-grafu $\nt{V^*,E^*,c^*,s^*,T^*}$ je ekvivalentní s nalezením minimálního vrcholového pokrytí v grafu $G$.
+    }
+    \dukaz{
+    Každému vrcholovému pokrytí $X \subseteq V$ grafu $G$ odpovídá cílový stav $X \in T^*$ v A*-grafu. Libovolná cesta z $s^*$ do $X$ má přitom délku $|X|$.
+    }
+
+    \subsection{Heuristika}
+    \label{sect-vp-heur}
+    \thmdefin{1. heuristika pro VP}{
+    Buď $G_N(X)$ podgraf $G$, který obsahuje pouze hrany v $N(X)$. Heuristikou $h(X)$ je nejmenší $k \in \N$ takové, že \[\suma{i=1}{k} ( \deg_{G_{N(X)}}(v_i)) \geq |N(X)|,\] kde $v_1, \ldots, v_k$ jsou vrcholy z $G_N(X)$, seřazené sestupně podle $\deg_{G_{N(X)}}$. Pro cílový stav $X \subseteq G, N(X) = \emptyset$ definujeme $h(X)=0$. 
+
+    To znamená: z vrcholů, které jsou v $G_N(X)$, vybíráme vrcholy, dokud součet jejich stupňů nedosáhne $|N(X)|$. Minimální počet takových vrcholů je heuristika, neboť přinejmenším takový počet vrcholů bude nutno zařadit do libovolného pokrytí zbývajících hran.
+    }
+    \eject
+    \thmtvrzone{
+      Funkce $h$ je konzistentní heuristika.
+     }
+     \dukaz{
+       Je třeba ukázat, že $\forall X \subseteq V, v \in V \setminus X$ platí 
+       \[ h(X) \leq 1 + h(X \cup \{v\}). \] 
+       
+       Nechť $X \subseteq V, v \in V \setminus X$. Označme $|N(X)| = n_1$, $|N(X \cup \{v\})|~=~n_2$, $\forall w \in X: d(w) = deg_{G_{N(X)}}(w), d'(w) = deg_{G_{N(X \cup \{v\})}}(w)$. Zřejmě platí $n_2~=~n_1~-~d(v)$. 
+       
+       Nechť $h(X \cup \{ v \}) = k$ a $b_1, \ldots, b_k$ jsou vrcholy v $G_{N(X  \cup \{v\})}$ takové, že platí \[d'(b_1) + \ldots + d'(b_k) \geq |N(X \cup \{v\})| = n_2.\]
+       Uvažujme vrcholy $b_1, \ldots, b_k$ v grafu $G_{N(X)}$. Definujme $d^+(b_i) = d'(b_i) + 1$, pokud $\{ b_i, v \} \in E$ a $d^+(b_i) = d'(b_i)$ jinak. Pak $d^+(b_1), \ldots, d^+(b_k)$ jsou stupně vrcholů $b_1, \ldots, b_k$ v grafu $G_{N(X)}$.
+       
+       Platí 
+       \[ d^+(b_1) + \ldots + d^+(b_k) + d(v) \geq d'(b_1) + \ldots + d'(b_k) + d(v) \geq n_2 + d(v) = n_1, \]
+       tedy $h(X)$ nemůže být větší než $k+1$, takže
+       \[ h(X) \leq 1 + h(X \cup \{v\}). \]
+       Společně s tím, že $h(X)=0$ pro $X \in T^*$, je podle lemmatu \ref{lemma-nulove} funkce $h$ konzistentní heuristika.
+      }
+
+    \subsection{Aproximace}
+    \label{sect-vp-aprox}
+    \begin{enumerate}
+     \item \emph{Hladová}: 
+    Ze zbylých vrcholů z $G_{N(X)}$ vybereme do pokrytí vrchol s největším stupněm a iterujeme, dokud zbývá nějaká nepokrytá hrana.
+     \item \emph{Hranová} (2-aproximace): 
+    Z $N(X)$ vybereme libovolnou hranu. Do pokrytí přidáme oba její vrcholy a iterujeme.
+    \end{enumerate}
+
+    \subsection{Funkce pro A*}
+    \label{sect-vp-func}
+    \begin{compactdesc}
+     \item[start()] $=\emptyset$. 
+     \item[cil($X$)] uspěje, pokud $N(X)=\emptyset$.
+     \item[naslednici($X$)] $= \{ X \cup \{v\} \| \forall v \in (V \setminus X) \}$.
+     \item[oceneni($X, X \cup \{v\}$)] $=1$.
+     \item[heuristika($X$)] viz \ref{sect-pb-heur}
+     \item[aproximace($x$)] viz \ref{sect-pb-aprox}
+    \end{compactdesc}
+
+%     Poznámka: nezáleží na pořadí, ve kterém vrcholy přidáváme, tj. všechny cesty do $X$ mají stejnou délku $|X|$.
+
+  \section{Problém batohu (PB)}
+    \subsection{Zadání}
+    Máme $n$ předmětů o objemu $o_i > 0$ a ceně $c_i > 0$ a batoh o objemu $K > 0$. Chceme vybrat takové předměty, které se do batohu vejdou ($\sum o_i \leq K$) a jejichž \emph{součet cen je co největší}.
+    
+    Důkaz NP-úplnosti problému viz \cite{garey} str. 247 MP9.
+    
+    Pro problém batohu existuje úplně polynomiální aproximační schéma.
+
+    Protože maximalizační problém nevyhovuje pro aplikaci A*, budeme řešit \emph{opačný problém}: hledáme ty předměty, které do batohu nedáme, a chceme, aby jejich cena byla co nejmenší. Proto začneme s \uv{přeplněným} batohem, kde budou všechny předměty, a budeme z něj předměty postupně odebírat, tak, aby se tam zbytek vešel. Stavem bude množina indexů předmětů v batohu. Startovní stav bude obsahovat všechny předměty, cílové stavy budou reprezentovat množiny předmětů, které se již vejdou do batohu. Třída cílových stavů je tak uzavřena na podmnožiny, které ovšem nebudou algoritmem A* dále generovány.
+
+    \thmdefin{A*-graf pro problém PB}{
+    Označme $I=\{ 1, \ldots, n \}$ množinu indexů všech předmětů a definujme:
+\[ \begin{array}{l}
+     V^* = \{ X \| X \subseteq I \} = \P(I), \\
+     E^* = \{ \nt{X, X \setminus \{i\}} \| i \in X \}, \\
+     c^*(\nt{X, X \setminus \{i\}}) = c_i, \\
+     s^* = I, \\
+     T^* = \{ X \in V^* \| \suma{i \in X}{} o_i \leq K \}.
+     \end{array} \]
+    }
+
+    \thmlemma{Převod PB na A*}{
+     Nalezení minimální cesty v A*-grafu $\nt{V^*,E^*,c^*,s^*,T^*}$ je ekvivalentní s vyřešením problému batohu.
+    }
+    \dukaz{
+    Každý cílový stav $X \in T^*$ představuje jedno přípustné řešení daného problému batohu. Délka každé cesty z $s^*$ do $X$ v A*-grafu je součtem cen předmětů, které do batohu nedáme (tj. předmětů s indexy $I \setminus X$). Minimální cesta v A*-grafu tak dává maximální cenu předmětů, které se do batohu vejdou.
+    }
+
+    \subsection{Heuristika}
+    \label{sect-pb-heur}
+    \thmdefin{1. heuristika pro PB}{
+    Počítáme, jako kdyby šlo předměty dělit. Bereme předměty z $X$ sestupně podle $\frac{o_i}{c_i}$ a odebereme jich tolik (případně z posledního jen část), aby se objem zbylých předmětů rovnal objemu batohu. Cena takto vyhozených předmětů (z posledního jen patřičná část) je heuristika $h(X)$.
+    
+    Formálně: Přečíslujme předměty z $X$ tak, aby byly seřazeny sestupně podle $\frac{o_i}{c_i}$, tedy $\frac{o_1}{c_1} \geq \frac{o_2}{c_2} \geq \ldots \geq \frac{o_n}{c_n}$. Definujme přebytečný objem v batohu $K'(X) = \suma{i\in X}{} o_i - K$. 
+    Pak objem odebíraných předmětů je $o_1 + \ldots + o_{k-1} + p \cdot o_k = K'(X)$ a jejich cena $c_1 + \ldots + c_{k-1} + p \cdot c_k = h(X)$, kde $p$ je poměr rozdělení posledního předmětu:
+    \[ 0 \leq p = \frac{K'(X) - (o_1 + \ldots + o_{k-1})}{o_k} \leq 1. \]
+    Pokud je $K'(X) \leq 0$, jde o cílový stav a $h(X) = 0$.
+    }
+    \thmtvrzone{
+      Funkce $h$ je konzistentní heuristika.
+     }
+     \dukaz{
+     Je třeba ukázat, že $\forall X \subseteq I, y \in X$ platí $h(X) \leq c_y + h(X \setminus \{y\})$.
+     
+     Nechť $X \subseteq I, y \in X$; $x_1, \ldots, x_n$ jsou patřičně seřazené předměty. Platí:
+     \[ K'(X \setminus \{y\}) = \suma{i\in X}{} o_i - o_y - K = K'(X) - o_y. \]
+     \begin{enumerate}
+      \item Pokud $y \in \{ x_1, \ldots, x_{k-1} \}$, pak
+      \[ h(X \setminus \{y\}) = c_1 + \ldots + c_{k-1} + p \cdot c_k - c_y = h(X) - c_y. \]
+      \item Jinak $y = x_k$ nebo $y \notin \{ x_1, \ldots, x_{k} \}$. Pro oba případy označme $l$ počet předmětů odebraných heuristikou $h(X \setminus \{y\})$ a $p'$ poměr pro rozdělení posledního odebíraného předmětu v téže heuristice. Tedy
+      \[ h(X \setminus \{y\}) = c_1 + \ldots + c_{l-1} + p' \cdot c_l, \]
+      \[ K'(X \setminus \{y\}) = o_1 + \ldots + o_{l-1} + p' \cdot o_l. \]
+      Víme, že rozdíl přebytečného objemu je 
+      \[K'(X) - K'(X \setminus \{y\}) = o_y.\] 
+      Ale také
+      \[ \begin{array}{l}
+  K'(X) - K'(X \setminus \{y\}) = \\
+      = (o_1 + \ldots + o_{k-1} + p \cdot o_k) - (o_1 + \ldots + o_{l-1} + p' \cdot o_l) = \\
+      = (1-p') \cdot o_l + o_{l+1} + \ldots + o_{k-1} + p \cdot o_k.
+      \end{array} \]
+
+      Označme $c_h$ rozdíl obou heuristik:
+      \[ \begin{array}{l}
+      c_h = h(X) - h(X \setminus \{y\}) = \\
+      = (c_1 + \ldots + c_{k-1} + p \cdot c_k) - (c_1 + \ldots + c_{l-1} + p' \cdot c_l) = \\ 
+      = (1-p') \cdot c_l + c_{l+1} + \ldots + c_{k-1} + p \cdot c_k.
+      \end{array} \]
+      
+      Díky seřazení předmětů platí:
+      \[ \frac{o_y}{c_y} \leq \frac{o_k}{c_k} \leq \frac{o_{k-1}}{c_{k-1}} \leq \ldots \leq \frac{o_{l+1}}{c_{l+1}} \leq \frac{o_l}{c_l}. \]
+      Protože pro kladná čísla platí $x \leq \frac{a}{b} \leq \frac{c}{d} \impl x \leq \frac{a+c}{b+d}$, dostáváme:
+      \[ \frac{o_y}{c_y} \leq \frac{p \cdot o_k + o_{k-1} + \ldots + o_{l+1} + (1-p') \cdot o_l}{p \cdot c_k + c_{k-1} + \ldots + c_{l+1} + (1-p') \cdot c_l} = \frac{o_y}{c_h}. \]
+      Tedy
+      \[ c_y \geq c_h = h(X) - h(X \setminus \{y\}). \]
+      Společně s tím, že $h(X)=0$ pro $X \in T^*$, je podle lemmatu \ref{lemma-nulove} funkce $h$ konzistentní heuristika.
+     \end{enumerate}
+     }
+
+    \subsection{Aproximace}
+    \label{sect-pb-aprox}
+    Stejně jako heuristika, ale poslední předmět nedělíme, odstraníme ho celý.
+
+    \subsection{Funkce pro A*}
+    \label{sect-pb-func}
+    \begin{compactdesc}
+     \item[start()] $=I$.
+     \item[cil($X$)] uspěje, pokud  $\suma{i \in X}{} o_i \leq K$.
+     \item[naslednici($X$)] $= \{ X \setminus \{ i \} \| i \in X \}$.
+     \item[oceneni($X,X \setminus \{ i \}$)] $=c_i$.
+     \item[heuristika($X$)] viz \ref{sect-pb-heur}
+     \item[aproximace($x$)] viz \ref{sect-pb-aprox}
+    \end{compactdesc}
+
+    
+    %Na druhou stranu, můžeme pro tento případ A* zjednodušit.
+
+  \section{Rozvrhování úloh (RU)}
+    \subsection{Zadání}
+%    Máme $n$ úloh daných časem $c_i \in \R+$ potřebným na provedení a nákladovou funkcí $f_i : \R+ \to \R+$, která určuje, kolik nás bude \uv{stát} ukončení dané úlohy $i$ v čase $t$. Předpokládáme, že nákladová funkce s časem neklesá, tedy \[\forall t_1,t_2, t_1 \leq t_2: f_i(t_1) \leq f_i(t_2).\] Chceme seřadit úlohy tak, aby součet jejich nákladových funkcí v čase ukončení úlohy byl co nejmenší. Jinými slovy hledáme permutaci $p(i)$ takovou, aby $\sum f_i(s_i + c_i)$ (kde $s_i=\suma{p(j)<p(i)}{} c_j$ je začátek provádění úlohy $i$) bylo co nejmenší.
+
+Máme $n$ úloh daných hodnotami $c_i, t_i, p_i, r_i \in \R+$, kde $c_i$ určuje čas potřebný na provedení úlohy, $t_i$ určuje čas požadovaného ukončení úlohy, penále $p_i$ určuje postih za nestihnutí úlohy v požadovaném čase a konečně $r_i$ je koeficient růstu penalizace . Definujme nákladovou funkci:
+\[ f_i : \R+ \to \R+, f_i(t) = p_i + r_i \cdot (t-t_i) \mbox{ pro } t>t_i, f_i(t)=0 \mbox{ jinak}.\] 
+Chceme seřadit úlohy tak, aby \emph{součet jejich nákladových funkcí} v čase ukončení úlohy \emph{byl co nejmenší}. Jinými slovy hledáme permutaci $q(i)$ takovou, aby minimalizovala celkové náklady $\sum f_i(s_i + c_i)$, kde $s_i=\suma{q(j)<q(i)}{} c_j$ je začátek provádění úlohy $i$.
+
+Důkaz NP-úplnosti problému viz \cite{garey} str. 236-237, SS3.
+
+Zvolená varianta problému rozvrhování úloh je jedna z jednodušších, avšak vystihuje kombinatorickou podstatu problémů rozvrhování \cite{vlach} a je NP-úplná.
+
+Heuristické odhady jsou zde obtížné vzhledem k tomu, že nákladové funkce závisí na čase. Pro důkazy konzistence námi navržených odhadů stačí, že nákladové funkce jsou neklesající.
+    
+    \thmdefin{A*-graf pro problém RU}{
+    Označme $I=\{1, \ldots, n\}$ množinu všech indexů úloh, stav bude podmnožina $X \subseteq I$, která představuje podproblém rozvržení úloh z $X$. Pro $X \subseteq I$ označme součet časů úloh z této podmnožiny $c_X=\suma{i \in X}{} c_i$. Definujme:
+     \[ \begin{array}{l}
+     V^* = \{ X \| X \subseteq I \} = \P(I), \\
+     E^* = \{ \nt{X, X \cup \{i\}} \| i \in I \setminus X \}, \\
+     c^*(\nt{X, X \cup \{i\}}) = f_i(c_X + c_i), \\
+     s^* = \emptyset, \\
+     T^* = \{ I \}. \\
+     \end{array} \]
+    }
+
+    \thmlemma{Převod RU na A*}{
+     Nalezení minimální cesty v A*-grafu $(V^*,E^*,c^*,s^*,T^*)$ je ekvivalentní s vyřešením problému rozvrhování úloh.
+    }
+    \dukaz{
+    Každá cesta z $s^*$ do $T^*$ v A*-grafu představuje jednu permutaci (rozvržení úloh). Délka této cesty je součet nákladových funkcí pro toto rozvržení.
+    }
+
+    \subsection{Heuristika}
+    \label{sect-ru-heur}
+    \thmdefin{1. heuristika pro RU}{
+    Sečteme nákladové funkce zbývajících úloh, kdyby byly rozvrženy jako první:
+    \begin{align*}
+     h_1(X) &= \suma{i \in (I \setminus X)}{} f_i(c_X+c_i) \mbox{ pro } X \subsetneq I, \\
+     h_1(I) &= 0.
+    \end{align*}
+    }
+    \thmtvrzone{
+      Funkce $h_1$ je konzistentní heuristika.
+     }
+     \dukaz{
+     Je třeba ukázat že pro každé $X \subseteq I, y \in I \setminus X$ platí \[h_1(X)~\leq~f_y(c_X~+~c_y)~+~h_1(X~\cup~\{y\}).\]
+     
+     Díky tomu, že nákladové funkce jsou neklesající, pro $i \in I \setminus (X \cup \{y\})$ platí:
+     \[ f_i(c_X + c_i) \leq f_i(c_{(X \cup \{y\})} + c_i) = f_i(c_X + c_y + c_i). \]
+     Odtud získáme
+     \[ \suma{i \in (I \setminus X)}{} f_i(c_X+c_i) \leq f_y(c_X + c_y) + \suma{i \in (I \setminus (X \cup \{y\}))}{} f_i(c_{(X \cup \{y\})} + c_i). \]
+     Společně s tím, že $h_1(I) = 0$, je $h_1$ podle lemmatu \ref{lemma-nulove} konzistentní heuristika. 
+     }
+
+    \thmdefin{2. heuristika pro RU}{
+    Buď $c'$ seznam časů zbývajících úloh seřazených do neklesající posloupnosti podle jejich času. V každém bodě, kde by končila nějaká úloha podle tohoto rozvržení, určíme minimální nákladovou funkci přes všechny zbývající úlohy. Heuristika bude součet těchto minim.
+    \begin{align*}
+     h_2(X) &= \suma{i=1}{|I \setminus X|} \min_{j \in (I \setminus X)} f_j(c_X + \suma{k=1}{i} c'_k) \mbox{ pro } X \subsetneq I, \\ 
+     h_2(I) &= 0.
+    \end{align*}
+    }
+    \eject
+    \thmtvrzone{
+      Funkce $h_2$ je konzistentní heuristika.
+     }
+     \dukaz{
+     Je třeba ukázat, že pro každé $X \subseteq I, y \in I \setminus X$ platí 
+     \[ h_2(X) \leq f_y(c_X + c_y) + h_2(X \cup \{y\}). \]
+     
+     Nechť $X \subseteq I, y \in I \setminus X$. Pro libovolné časy $t_1, t_2$ platí:
+     \[ t_1 \leq t_2 \impl \min_{j \in I \setminus X} f_j(t_1) \leq \min_{j \in I \setminus (X \cup \{y\})} f_j(t_2), \]
+     protože nákladové funkce $f_j$ jsou neklesající.  
+     
+     Označme $n = |I \setminus X|$, dále $m$ takový index, že $c'_m = c_y$, a pro všechna $i \in \{ 1, \ldots, n \}: \overline{c_i} = \suma{k=1}{i} c'_k$, . Označme $T$ rozvržení časů podle heuristiky $h_2(X)$ a $T'$ rozvržení, které začíná časem úlohy $y$ a pak následuje rozvržení podle heuristiky $h_2(X \cup \{y\})$:
+     \[ \begin{array}{c}
+     T = \nt{ c_X + \overline{c_1}, c_X + \overline{c_2}, \ldots, c_X + \overline{c_m}, c_X + \overline{c_{m+1}}, \ldots, c_X + \overline{c_n}}, \\
+     T' = \nt{ c_X + c'_m, c_X + c'_m + \overline{c_1}, \ldots, c_X + c'_m + \overline{c_{m-1}}, c_X + \overline{c_{m+1}}, \ldots, c_X + \overline{c_n}}.
+     \end{array} \]
+     Pak stačí ukázat, že $\forall i \in \{ 1, \ldots, n \}: T_i \leq T'_i$. To je ale pravda, protože platí $\forall i \in \{ 1, \ldots, m \}: \overline{c_i} \leq c'_m + \overline{c_{i-1}}$ a pro $i>m: T_i=T'_i$.
+     
+%      Tedy platí následující 3 nerovnice:
+%      \[ \min_{j \in (I \setminus X)} f_j(c_X + c'_1) \leq f_y(c_X + c'_m), \]
+%       
+%      \[ \forall i \in \{ 2, \ldots, l \} : \min_{j \in (I \setminus X)} f_j(c_X + \overline{c_i}) \leq \min_{j \in (I \setminus (X \cup y))} f_j(c_X + c'_l + \suma{k=1}{i-1} c'_k), \]
+%          
+%      \[ \forall i \in \{ l+1, \ldots, |I \setminus X| \} : \min_{j \in (I \setminus X)} f_j(c_X + \suma{k=1}{i} c'_k) \leq \min_{j \in (I \setminus (X \cup y))} f_j(c_X + \suma{k=1}{i} c'_k). \]
+%      
+%      Sečtením těchto nerovnic získáme:
+%      \begin{multline*}
+%      \min_{j \in (I \setminus X)} f_j(c_X + c'_1) + \suma{i=2}{l} \min_{j \in (I \setminus X)} f_j(c_X + \suma{k=1}{i} c'_k) + \suma{i=l+1}{|I \setminus X|} \min_{j \in (I \setminus X)} f_j(c_X + \suma{k=1}{i} c'_k) \leq \\
+%      \leq f_y(c_X + c'_l) + \suma{i=2}{l} \min_{j \in (I \setminus (X \cup y))} f_j(c_X + c'_l + \suma{k=1}{i-1} c'_k) + \suma{i=l+1}{|I \setminus X|} \min_{j \in (I \setminus (X \cup y))} f_j(c_X + \suma{k=1}{i} c'_k).
+%     \end{multline*}
+    Odtud plyne
+    \[ \suma{i=1}{n} \min_{j \in (I \setminus X)} f_j(T_i) \leq f_y(T'_1) + \suma{i=2}{n} \min_{j \in (I \setminus (X \cup \{y\}))} f_j(T'_i), \]
+    tedy
+    \[ \begin{array}{l}
+\suma{i=1}{|I \setminus X|} \min_{j \in (I \setminus X)} f_j(c_X + \suma{k=1}{i} c'_k) \leq \\
+\leq f_y(c_X + c_y) + \suma{i=1}{|I \setminus X \cup \{y\}|} \min_{j \in (I \setminus (X \cup \{y\}))} f_j(c_{(X \cup \{y\})} + \suma{k=1}{i} c'_k). 
+\end{array} \]
+    Společně s tím, že $h_2(I)=0$, je $h_2$ podle lemmatu \ref{lemma-nulove} konzistentní heuristika.
+    }
+    
+    \eject
+    \thmpozorone{
+    Heuristika $h_1$ není silnější než heuristika $h_2$ a heuristika $h_2$ není silnější než heuristika $h_1$.
+    }
+    \dukaz{
+    Jako první protipříklad uvažujme zadání RU se dvěma úlohami s hodnotami
+    $c_1 = c_2 > 0, t_1 = t_2 = 0, p_1 > p_2 > 0, r_1 = r_2 = 0$.
+    Pak $h_1(\emptyset) = p_1 + p_2$, $h_2(\emptyset) = 2 \cdot p_2$,
+    tedy $h_2$ není silnější než $h_1$.
+
+    Druhý protipříklad bude mít stejné zadání až na to, že stanovíme \linebreak $t_1~=~t_2~=~c_1~=~c_2~>~0$. Pak
+    $h_1(\emptyset) = 0$,
+    $h_2(\emptyset) = p_2$,
+    tedy $h_1$ není silnější než $h_2$.
+    }
+    
+    \thmdefin{3. heuristika pro RU}{
+    Kombinací obou heuristik získáme silnější heuristiku, která vede k větší redukci prohledané části A*-grafu (viz lemma \ref{lemma-sila-heuristiky}):
+    \[ h_3(X) = max \{ h_1(X), h_2(X) \} \mbox{ pro } X \subseteq I. \]
+    }
+
+    \subsection{Aproximace}
+    \label{sect-ru-aprox}
+    \begin{enumerate}
+     \item Zbylé úlohy seřadíme sestupně podle nákladové funkce v čase, když by byla tato úloha rozvržena jako hned následující. Vybereme úlohu s nejdražším penále a iterujeme.
+     Pro stav $X$ tedy vybereme úlohu s \[ \max_{i \in I \setminus X} f_i(c_X+c_i).\]
+
+     \item Podobně jako předchozí, akorát vybíráme podle průměru nákladových funkcí při rozvržení na začátku a na konci.
+     Pro stav $X$ tedy vybereme úlohu s \[ \max_{i \in I \setminus X} \frac{f_i(c_X+c_i)+f_i(c_I)}{2}. \]
+    \end{enumerate}
+
+    \subsection{Funkce pro A*}
+    \label{sect-ru-func}
+    \begin{compactdesc}
+     \item[start()] $=\emptyset$. 
+     \item[cil($X$)] uspěje, pokud $X=I$.
+     \item[naslednici($X$)] $= \{ X \cup \{ i \} \| i \in I \setminus X \}$.
+     \item[oceneni($X, X \cup \{i\}$)] $=f_i(c_X+c_i)$.
+     \item[heuristika($X$)] viz \ref{sect-ru-heur}.
+     \item[aproximace($x$)] viz \ref{sect-ru-aprox}.
+    \end{compactdesc}
+
+\chapter{Implementace - uživatelská dokumentace}
+Jako uživatelské rozhraní pro vytvořený programový systém bylo vyvinuto jednoduché grafické prostředí. Po výběru řešeného optimalizačního problému následuje jeho zadání, kde může uživatel zvolit načtení dat ze souboru, nebo náhodné generování dat. Možná je též úprava aktuálního zadání a jeho uložení do souboru pro opakované spuštění (například s jinými parametry).
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/1.png}
+ \caption{Výběr řešeného optimalizačního problému}
+ \label{fig:gui-1}
+\end{figure}
+
+\section{Instalace a spuštění grafického rozhraní}
+Grafické rozhraní bylo napsáno v programovacím jazyce \emph{Python} s využitím grafické knihovny \emph{Tkinter}. Protože programový systém požaduje platformu \emph{Linux}, není zatím použití jiné platformy možné (viz sekce \ref{sect-prog-inst}). Spuštění grafického rozhraní tak vyžaduje programovací jazyk Python, grafickou knihovnu Tk, a její podporu pro Python: \emph{python-tk} (v distribuci Debian splní všechny tyto požadavky instalace balíku \code{python-tk}).
+
+K instalaci stačí překopírovat obsah CD do libovolného adresáře na pevném disku. Prostředí spuštěné z CD nebude fungovat korektně, protože program ke své práci vyžaduje právo zápisu do aktuálního adresáře. Při výpočtu větších zadání může program vyžadovat poměrně velké místo na pevném disku, je proto vhodné na něm mít dost volného místa. Spuštění grafického rozhraní se provede spuštěním skriptu \code{onp-star-gui}.
+
+Adresářová struktura přiloženého CD disku:
+\begin{compactdesc}
+\item[bin] spustitelné soubory programového systému (pro každý řešený optimalizační problém jeden, jsou to \code{tsp}, \code{vp}, \code{pb}, \code{ru}),
+\item[gui] grafické rozhraní,
+\item[src] zdrojové kódy,
+\item[examples] ukázková zadání, tyto lze pomocí uživatelského prostředí načíst.
+\end{compactdesc}
+
+\section{Výběr optimalizačního problému a zadání vstupních dat}
+
+Je možno zvolit jeden ze čtyř implementovaných optimalizačních NP-úplných problémů popsaných v kapitole 3 - viz obrázek \ref{fig:gui-1}.
+
+Pro jednotlivé optimalizační problémy se zadávají vstupní data v různé struktuře. Vždy lze zadání načíst z připraveného souboru, nebo je náhodně generovat. Takto připravená data lze libovolně upravovat a případně uložit.
+
+Při generování dat se použije zadaná velikost úlohy, a objeví se dialog, ve kterém je možné nastavit rozmezí generovaných čísel. Velikost úlohy lze kdykoliv změnit, přičemž tato změna není destruktivní, tedy při zmenšení velikosti zůstane zachována patřičná počáteční část dat.
+
+Některá předpřipravená zadání lze nalézt v adresáři \code{examples}. Pokud si zadání zapomenete uložit, nic se neděje, program automaticky ukládá poslední zadání do souboru \code{examples/last}.
+
+\subsection{Problém obchodního cestujícího}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/2-tsp.png}
+ \caption{Zadání TSP maticí ohodnocených hran}
+ \label{fig:gui-2-tsp}
+\end{figure}
+\begin{figure}[!]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/2-vp.png}
+ \caption{Zadání grafu pro VP trojúhelníkovou maticí sousednosti}
+ \label{fig:gui-2-vp}
+\end{figure}
+Zadání ohodnoceného grafu pro problém obchodního cestujícího probíhá pomocí matice, viz obrázek \ref{fig:gui-2-tsp}. Políčko v řádku $i$ a sloupci $j$ určuje ohodnocení hrany z vrcholu $i$ do vrcholu $j$. Zadáním jakékoli záporné hodnoty se příslušná hrana odstraní z grafu. Je ovšem třeba upozornit, že program nijak nekontroluje, zda v zadaném grafu existuje hamiltonovská kružnice. V případě, že neexistuje, chování programu není definované.
+
+\subsection{Vrcholové pokrytí}
+Neorientovaný graf pro vrcholové pokrytí se zadává pomocí trojúhelníkové matice sousednosti, reprezentované zaškrtávacími políčky, viz obrázek \ref{fig:gui-2-vp}. Zaškrtnutím políčka na $i$-tém řádku a $j$-tém sloupci označíme přítomnost hrany mezi vrcholy $i$ a $j$ v grafu.
+
+\subsection{Problém batohu}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/2-pb.png}
+ \caption{Zadání objemů a cen předmětů pro PB}
+ \label{fig:gui-2-pb}
+\end{figure}
+\eject
+Předměty pro zadání problému batohu se zadávají do tabulky, kde každý řádek představuje jeden předmět, viz obrázek \ref{fig:gui-2-pb}. Navíc se určuje objem batohu. Všechny tyto hodnoty musí být nezáporné.
+
+\subsection{Rozvrhování úloh}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/2-ru.png}
+ \caption{Zadání úloh pro RU}
+ \label{fig:gui-2-ru}
+\end{figure}
+Úlohy pro zadání rozvrhování úloh se zadávají do tabulky, kde každý řádek představuje jednu úlohu, viz obrázek \ref{fig:gui-2-ru}. Všechny tyto hodnoty musí být nezáporné.
+
+\eject
+\section{Parametry}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/3.png}
+ \caption{Zadání parametrů běhu algoritmu A*}
+ \label{fig:gui-3}
+\end{figure}
+Parametry běhu A* jsou dvojího druhu (viz obrázek \ref{fig:gui-3}. Nejprve může uživatel volit heuristiku a aproximaci z nabídky uvedené v textu k vybranému optimalizačnímu problému (viz kapitola 3). Heuristika 0 znamená použití nulové heuristiky (viz poznámka \ref{pozn-nulova-heur}). Aproximace 0 znamená použití heuristikou generované aproximace (viz poznámka \ref{pozn-aproximace-0}).
+
+Dále jsou zadávány technické parametry týkající se rozsahu haldy a B-stromu (tyto parametry mimo jiné ovlivňují množství použité paměti při výpočtu). V zadání parametrů jsou nabízeny vhodné předdefinované hodnoty.
+
+\section{Průběžné informace o výpočtu a výsledné řešení}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/4.png}
+ \caption{Průběžné výsledky}
+ \label{fig:gui-4}
+\end{figure}
+Po spuštění probíhá vlastní výpočet (viz obrázek \ref{fig:gui-4}), jehož průběh je zobrazován ve formě údajů o dosaženém dolním odhadu optima (vycházející z použité heuristiky -- postupně roste), horním odhadu optima (vycházející z použité aproximace -- při nalezení lepší aproximace klesne) a jemu odpovídajícímu nejlepšímu známému řešení. Poměr mezi oběma odhady ukazuje, jak se běh algoritmu přibližuje k cíli.
+
+Další informace se týkají rozsahu provedeného prohledávání (počet expanzí) a aktuální velikosti haldy. U rozsáhlejších zadání dochází k překročení maximálního zadaného rozměru haldy, což vede k odkládání části položek do vnější paměti (viz údaje o odkládací mezi počtu odložených položek a obsazené paměti). Tyto údaje během výpočtu kolísají.
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5,keepaspectratio=true]{./screenshots/5.png}
+ \caption{Výsledné řešení}
+ \label{fig:gui-5}
+\end{figure}
+Po úspěšném zakončení běhu se objeví výsledné optimum, nalezené optimální řešení a celkový počet expanzí (viz obrázek \ref{fig:gui-5}), který dokumentuje složitost provedeného výpočtu. 
+
+Poznamenejme, že při řešení jednoho příkladu lze použít různé heuristiky a aproximace. Výsledkem však musí být stejné optimum. Lišit se může nalezené optimální řešení (může se to to stát v případě že existuje více optimálních řešení -- běžné třeba u VP). Výrazně se může lišit počet expanzí v závislosti na síle použité heuristiky ve vztahu k danému zadání úlohy.
+
+\chapter{Implementace - programátorská dokumentace}
+Implementován je algoritmus A* s aproximací (algoritmus \ref{alg-aprox}). Program je napsán obecně a využívá funkcí z definice \ref{def-agraf-fce}, které reprezentují A*-graf pro optimalizační problém (ne nutně NP-úplný). Implementace je provedena v jazyce C, který byl vybrán pro svoji rychlost.
+
+Při psaní programu byl brán zřetel na šetření pamětí a rychlost. Také z tohoto důvodu nejsou použity žádné externí knihovny a všechny datové struktury jsou napsány s přihlédnutím ke specifickým požadavkům algoritmu A*.
+
+Algoritmus A* při své práci volá funkce, které definují jednotlivé optimalizační problémy. Přiřazením zdrojového kódu pro daný problém ke kódu pro A* vznikne samostatný spustitelný program.
+
+  \section{Instalace a spuštění}
+  \label{sect-prog-inst}
+  K instalaci stačí překopírovat obsah CD do libovolného adresáře na pevném disku. Spuštění z CD není možné, protože program potřebuje ke své práci právo zápisu do aktuálního adresáře. Zde vytváří soubor \code{zahradnik.dat}, který je pracovním souborem B-stromu. Spustitelné soubory pro platformu Linux jsou v adresáři \code{bin}. 
+  
+  \subsection{Ovládání programu z příkazové řádky}
+  Základní program nepoužívá žádné grafické prostředí, volby pro běh programu lze zadat použitím voleb na příkazové řádce. Grafický program popsaný v kapitole 4 je pouze jeho grafickou nadstavbou, která spustí program pro daný problém s příslušnými volbami a interpretuje jeho výstup.
+  
+  Na příkazové řádce lze využít následující volby:
+  \begin{enumerate}
+   \item[-v] ovládá \uv{upovídanost} programu. Očekává nezáporné celé číslo. Základní hodnota je 1, možnosti jsou 0-4.
+%    \begin{center}
+% \begin{tabular}{l|l}
+% -v & význam\\
+% 0 & vypíše pouze zadání a řešení\\
+% 1 & vypíše aktuální stav po každé tisícovce expanzí a při významných událostech\\
+% 2 & vypíše aktuální stav při každé expanzi\\
+% 3 & vypisuje i generované stavy při expanzi\\
+% 4 a víc & vypisuje i některé ladící informace
+%    \end{tabular}
+%    \end{center}
+   \item[\code{-f}] specifikuje soubor, který obsahuje zadání.
+   \item[\code{-s}] pokud není určen soubor se zadáním, specifikuje velikost náhodně vygenerovaného problému, který se použije. Pokud je určen soubor se zadáním pomocí parametru \code{-f}, hodnota \code{-s} se ignoruje. Musí být kladné celé číslo. Základní hodnota: 20.
+   \item[\code{-h}] specifikuje číslo použité heuristiky. 0 označuje nulovou heuristiku. Základní hodnota je vždy nejvyšší přípustné číslo (podle počtu heuristik pro daný problém).
+   \item[\code{-a}] stejné jako \code{-h}, ale pro aproximace. 0 označuje použití heuristikou generované aproximace.
+   \item[\code{-u}] specifikuje hodnotu heapMax, tedy maximální velikost haldy. Podrobnosti v sekci \ref{sekce-datove-struktury}. Základní hodnota: 50000.
+   \item[\code{-d}] specifikuje hodnotu heapMin, tedy velikost haldy, na kterou se zmenší, pokud dojde k překročení heapMax. Podrobnosti v sekci \ref{sekce-datove-struktury}. Základní hodnota: 100000.
+   \item[\code{-m}] velikost paměti v MB pro cache B-stromu. Základní hodnota: 100.
+  \end{enumerate}
+  Přípustné volby jsou pro všechny čtyři spustitelné soubory stejné.
+
+  \subsection{Formát vstupních souborů}
+  Formát zadání jednotlivých problémů (tedy souborů předaných parametrem \code{-f}) je následující.
+
+  Pro zadání problému obchodního cestujícího a problému vrcholového pokrytí je formát jednotný: na prvním řádku je přirozené číslo označující počet vrcholů $n=|V|$ grafu; na dalších řádcích je graf zadaný maticí ohodnocení hran. Matice musí být zadaná jako $n \cdot n$ desetinných čísel oddělených mezerou nebo novým řádkem. Tyto hodnoty jsou použity pro vyplnění matice $n \times n$ po řádcích. Každá hodnota může být celé nebo desetinné číslo. Jakákoliv záporná hodnota znamená, že se příslušná hrana nebude v grafu vyskytovat. Hodnoty na diagonále se ignorují, program se chová tak, jako kdyby tam byla záporná hodnota.
+  
+  U zadání problému batohu je na prvním řádku desetinné číslo určující objem batohu. Na druhém řádku je přirozené číslo $n$ určující počet předmětů. Následuje $n$ řádků se dvěma desetinnými čísly oddělenými mezerou, které určují objem a cenu předmětu. Všechna čísla v zadání musí být nezáporná.
+  
+  U zadání problému rozvrhování úloh je na prvním řádku přirozené číslo $n$ určující počet úloh. Následuje $n$ řádků se čtyřmi desetinnými čísly oddělenými mezerou, které určují postupně čas úlohy, čas požadovaného skončení úlohy, penále za nestihnutí a koeficient růstu penále. Všechna čísla v zadání musí být nezáporná. 
+
+  Místo jakéhokoliv desetinného čísla může být číslo celé (které bude programem převedeno na desetinné).
+  
+  Při nesplnění některého z požadavků program vypíše chybové hlášení a skončí. 
+  
+  \subsection{Kompilace}
+  Program byl vyvíjen v operačním systému Linux s použitím kompilátoru gcc. Pro zkompilování programu stačí spustit příkaz \code{make} v adresáři \code{src}. Tím by se měly vytvořit spustitelné soubory \code{tsp}, \code{vp}, \code{pb}, \code{ru} v adresáři \code{bin}. 
+
+  \section{Datové struktury}
+  \label{sekce-datove-struktury}
+  Algoritmus A* používá ke své práci dvě množiny prvků: open a closed. V každém kroku algoritmu se z open vybere minimální prvek a ten se z open odstraní (a přesune se do closed). Struktura starající se o open musí také umět zmenšit hodnotu nějakého prvku, aniž by se porušila jednoduchost výběru prvku minimálního. Dále je potřeba v open i closed rychle vyhledat přítomnost nějakého prvku. Pokud je nalezen, tak zjistit, jestli se nachází v open nebo closed. S vědomím těchto předpokladů byly zvoleny následující datové struktury:
+  
+  K implementaci open je použita minimální halda (tedy halda s minimem v kořeni, viz \cite{pokorny}, str. 35). Tato halda navíc implementuje funkci HeapDecreaseKey, která umožňuje po zmenšení hodnoty prvku jeho správné přeřazení uvnitř haldy. Dále halda podporuje volání zadané funkce vždy, když se změní pozice prvku v haldě (volání HeapDecreaseKey vyžaduje pozici prvku v haldě).
+
+  K uložení všech prvků (tj. uzavřené prvky -- množina closed a prvky v haldě -- množina open) a jejich vyhledávání jsou použity tzv. \uv{hrábě}, tedy hashovací tabulka, kde každý záznam v tabulce představuje seznam prvků.
+
+  Protože při řešení větších zadání velikost haldy neúměrně roste a s ní i paměťové nároky, odkládá se část dat do souboru. Toto odkládání je řízeno dvěma parametry: heapMax (maximální velikost haldy, která se nemůže překročit) a heapMin (velikost, na kterou se zmenší velikost haldy při překročení heapMax). Pokud velikost haldy překročí heapMax, zmenší se velikost haldy na heapMin odložením prvků z haldy do souboru. Zároveň se nastaví parametr odkladLimit na hodnotu posledního prvku haldy. Při vkládání nového prvku do haldy se nejprve porovná s parametrem odkladLimit; pokud je hodnota prvku větší, prvek se do haldy nevloží, ale odloží se do souboru. Tím pádem dříve nebo později dojde k vyprázdnění haldy. Ve chvíli, kdy se to stane, naplníme haldu prvky ze souboru na velikost heapMin.
+
+  Může se stát, že v odkládacím souboru bude nějaký prvek vícekrát (vygeneruje se stejný stav). Toto se řeší při načítání prvků ze souboru, kdy se kontrolují duplicity a do haldy se dá prvek s nejmenším odhadem.
+
+  Také je možné, že se v odkládacím souboru vyskytují prvky s odhadem větším nebo rovným aproximaci. Tyto prvky prostě při načítání nezařadíme do haldy.
+
+  K odkládání do souboru se používá B-strom (viz \cite{pokorny}, sekce 5.1). Díky tomu můžeme odložené prvky řadit za běhu a není třeba při načítání prvků z odkládacího souboru všechny projít (což by bylo značně neefektivní).
+
+  \subsection{Halda a hrábě}
+    Je použita binární halda. Halda zaručuje operace vložení prvku, vyjmutí minimálního prvku a zmenšení hodnoty nějakého prvku v čase $O(\log n)$. Implementace haldy je napsána obecně, umožňuje pracovat s jakoukoliv strukturou, k porovnávání jednotlivých prvků používá dodanou porovnávací funkci.
+
+    Hrábě se skládají z hashovací tabulky, jejíž každý řádek obsahuje seznam prvků, které mají stejný hash. Podrobnější popis takových struktur lze nalézt například v \cite{topfer}, sekce 6.8. Hashovací funkce musí být definována v závislosti na řešeném problému, protože A* nic neví o datech, která jsou pro optimalizační problém používána k reprezentaci stavů. Čas potřebný k vyhledání daného prvku záleží na kvalitě hashovací funkce: pokud by hashovací funkce zaručovala rovnoměrné rozdělení, byl by to $O(n/$hashMax$)$, kde hashMax je velikost hashovací tabulky.
+
+  \subsection{B-strom}
+    Jako sekundární paměť algoritmu A* byla použita lehce modifikovaná varianta tzv. redundantního B$^+$-stromu, kdy nelistové uzly mohou obsahovat více položek než listové uzly:
+    \thmdefin{B-strom pro A*}{
+    \label{def-bstrom}
+    Redundantní B$^+$-strom řádu $(n,m)$ je orientovaný strom, který splňuje následující požadavky:
+    \begin{enumerate}
+     \item Kořen má nejméně 2 potomky, pokud není listem.
+     \item Každý nekořenový nelistový uzel má nejméně $\lceil \frac{n}{2} \rceil$ a nejvýše $n$ potomků.
+     \item Každý list má nejméně $\lceil \frac{m}{2} \rceil$ a nejvýše $m$ datových záznamů.
+     \item Všechny cesty z kořene do listu jsou stejně dlouhé.
+     \item Data v nelistovém uzlu jsou organizována následovně:
+     \[ p_0,(k_1,p_1),(k_2,p_2), \ldots, (k_l, p_l) \]
+     kde $p_i$ jsou ukazatele na potomky, $k_i$ jsou klíče, které jsou uspořádány vzestupně.
+     \item Data v listovém uzlu jsou organizována následovně:
+     \[ p_r,(k_1,d_1),(k_2,d_2), \ldots, (k_l, d_l) \]
+     kde $p_r$ je ukazatel na pravého souseda (listový uzel nejblíže vpravo), $k_i$ jsou klíče, které jsou uspořádány vzestupně, $d_i$ jsou ke klíči asociovaná data, $(k_i,d_i)$ představuje jeden datový záznam.
+     \item Odpovídá-li ukazateli $p_i$ podstrom $U(p_i)$, potom pro všechny nelistové uzly a všechny $i \in \{ 1, \ldots n \}$ platí:
+     \begin{enumerate}
+      \item pro všechny klíče $k$ v $U(p_{i-1})$ je $k \leq k_i$,
+      \item pokud $i \neq n$ a $k_i = k_{i+1}$ pak pro všechny klíče $k$ v $U(p_i)$ je $k = k_i$,
+      \item jinak pro všechny klíče $k$ v $U(p_i)$ je $k > k_i$.
+     \end{enumerate}
+    \end{enumerate}
+    }
+
+    Všechna data jsou v listech stromu, v nelistových uzlech jsou pouze klíče. Každý list obsahuje i odkaz na svého pravého souseda, takže lze všechna data lineárně projít (získání $n$ prvních položek je tak velmi jednoduché). Každému uzlu stromu odpovídá jedna \uv{stránka} souboru o pevné velikosti. Tím pádem obsahují nelistové uzly stromu více položek než listy (protože obsahují pouze klíče, listy obsahují klíč a data). Klíče mohou být redundantní, tedy strom může obsahovat více položek se stejným klíčem. U položek se stejným klíčem je jejich pořadí určeno pořadím jejich vložení; posledně vložená položka bude první mezi položkami se shodným klíčem.
+    
+    V implementaci B-stromu jsou použity standardní operace štěpení a slučování uzlů tak, aby B-strom byl vždy v korektním stavu (splňoval definici \ref{def-bstrom}). Aby B-strom neustále nepřistupoval na disk, využívá část paměti (maximální velikost lze nastavit parametrem \code{memMax}) jako cache. Když potřebuje B-strom přistoupit do nějaké stránky, zkopíruje ji do paměti a případné změny udělá zde. Až ve chvíli, kdy by načtením další stránky překročil přidělené místo, zapíše všechny změněné stránky na disk jedním průchodem. Výhodou tohoto postupu je, že pokud je nějaká stránka potřeba víckrát v krátké době za sebou, není kvůli tomu potřeba přistupovat na disk.
+    
+    V konkrétním použití tohoto B-stromu pro algoritmus A* jsou jako klíče použity hodnoty funkce \code{odhad} a data jsou binární reprezentace stavu.
+
+  %\section{Implementace algoritmu A* a její složitost}
+  %\label{sect-prog-slozitost}
+   %Vzhledem k použitým datovým strukturám je nyní možné zpřesnit složitost algoritmu A* v této konkrétní implementaci. Selekce spočívá ve vyjmutí nejmenšího prvku z haldy \code{open}, to lze provést v čase $O(log(|V|)$ a jeho vložení do hrábí. Nalezení prvku v hrábích má v nejhorším případě složitost $O(|V|)$.
+  
+  \section{Popis řešených optimalizačních problémů}
+    Popis jednotlivých problémů spočívá v implementaci funkcí, které pak používá algoritmus A*. Kromě základních funkcí specifikujících A*-graf (tak jak jsou popsány v sekcích \ref{sect-tsp-func}, \ref{sect-vp-func}, \ref{sect-pb-func} a \ref{sect-ru-func}) je potřeba implementovat další funkce (většinou technického rázu). Jedná se o funkce, které umožňují načtení zadání optimalizačního problému ze souboru, uložení zadání do souboru; pomocné funkce, které umožňují odkládání stavů do odkládacího souboru, funkce na porovnání dvou stavů, atd. Kromě funkcí musí problém definovat datovou strukturu použitou pro jednotlivé stavy (\code{Stav}). Seznam všech potřebných funkcí je v souboru \code{problem-func.h}.
+
+    Reprezentace všech řešených optimalizačních problémů používají strukturu \code{Set}. Ta slouží k efektivnímu reprezentování indexové množiny. Využívá se toho, že maximální velikost množiny je předem známá. Množina se reprezentuje jako bitový řetězec, kde 1 na $i$-té pozici označuje přítomnost prvku $i$ v množině. Tento způsob zápisu je tak velmi paměťově efektivní a umožňuje rychle provádět různé operace s množinami: sjednocení množin odpovídá bitovému součtu, průnik množin bitovému součinu, doplněk množiny odpovídá bitové inverzi. Protože častou úlohou (především v heuristikách) je projití všech prvků množiny, byla implementována funkce \code{SetArray}, která vrátí pole indexů vyskytujících se v množině. Díky tomu jsou takovéto průchody efektivnější, než opakované dotazování na přítomnost určitého prvku v množině.
+
+    Protože všechny řešené problémy používají strukturu \code{Set}, využívá se i k vytvoření hashovací funkce. Hashovací funkce vrátí číslo, které je dané $k$ prvními bity zápisu dané množiny ve struktuře \code{Set}. Konstanta $k$ je pevně určena a stanovuje velikost hashovací tabulky.
+
+    Problém obchodního cestujícího a problém vrcholového pokrytí používají k popisu zadání strukturu \code{Graf}. Graf je reprezentován maticí, která má formu dvourozměrného pole. Umožňuje načtení a uložení grafu, což u daných problémů odpovídá uložení a načtení zadání.
+
+    Zbylé dva optimalizační problémy pro reprezentaci zadání používají obyčejné pole obsahující instance malých struktur popisující jeden předmět, respektive úlohu.
+    
+    Z definic všech implementovaných heuristik plyne, že mají polynomiální složitost vzhledem k velikosti zadání.
+    Vzhledem k vlastnostem A*-grafů řešených optimalizačních problémů je i jejich aproximace generovaná heuristikou polynomiální. To plyne z vlastnosti (\ref{eq-max-stupen}) a z toho, že všechny cesty z libovolného vrcholu do nějakého cílového vrcholu používají méně než $\log(|V^*|)$ hran. Protože pro všechny řešené optimalizační problémy je $\log(|V^*|)$ nanejvýš $n$, kde $n$ je velikost zadání, volá se při generování aproximace daná heuristika maximálně $n^2$ krát.
+    Z definic ostatních implementovaných aproximací plyne, že mají také polynomiální složitost.
+    
+%   \subsection{TSP}
+%   K reprezentaci stavu $\nt{v,M}$ je použita struktura Set pro množinu $M$ a celé číslo pro vrchol $v$. Pomocí struktury Graf je reprezentováno zadání problému. Díky tomu že všechny heuristiky ke své práci využívají jen zadání problému a vstupní stav, běží v polynomiálním čase vzhledem k velikosti zadání. Podobně je to i u aproximace.
+% 
+%   \subsection{VP}
+%   \subsection{PB}
+%   \subsection{RU}
+
+  \eject
+  \section{Zdrojové soubory}
+
+  \begin{description}
+    \item[main.cpp] Kód hlavní funkce, načtení voleb z příkazového řádku, spuštění algoritmu A*.
+    \item[astar.h] Samotný algoritmus A*.
+    \item[zahradnik.h] Struktura \code{Zahradnik}, starající se o všechny datové struktury, které A* používá, tedy haldu, hrábě a B-strom.
+    \item[heap.c, heap.h] Halda.
+    \item[hasharray.c, hasharray.h] Hrábě.
+    \item[btree.c, btree.h] B-strom.
+    \item[problem-func.h] Definice všech funkcí, které jsou implementovány pro každý optimalizační problém.
+    \item[problem.h] Hlavičkový soubor, který zastupuje jeden z problémů. (Podle nastavení makra pro překladač vloží hlavičkový soubor pro daný problém).
+    \item[problem-tsp.c, problem-tsp.h] Implementace problému obchodního cestujícího.
+    \item[problem-vp.c, problem-vp.h] Implementace problému vrcholového pokrytí.
+    \item[problem-pb.c, problem-pb.h] Implementace problému batohu.
+    \item[problem-ru.c, problem-ru.h] Implementace problému rozvrhování úloh.
+    \item[set.c, set.h] Struktura množiny, kterou k definici stavu používají všechny řešené problémy.
+    \item[graf.c, graf.h] Struktura pro popis grafu, k popisu zadání ji používají některé řešené problémy (TSP a VP).  
+    \item[options.h] Struktura pro načtení voleb z příkazového řádku.
+    \item[common.h] Hlavičkový soubor společný pro celý projekt. Obsahuje užitečná makra.
+  \end{description}
+
+\chapter{Porovnání heuristik a aproximací na příkladech}
+
+\section{Porovnání heuristik na souboru příkladů}
+Pro každý optimalizační problém byla náhodně generována zadání (vždy 100 zadání pro každou velikost 10-15). Pro každé zadání byl spuštěn algoritmus A* se všemi heuristikami popsanými v příslušné sekci kapitoly 3. Všechny heuristiky musí vést k nalezení stejného optima (což bylo ověřováno), avšak s různým počtem provedených expanzí. Průměrný počet expanzí pro jednotlivé velikosti problému umožňuje porovnat sílu použitých heuristik. U nejsilnější heuristiky je průměrný počet expanzí vyjádřen v procentech z celkového rozsahu příslušného A*-grafu.
+
+Poznamenejme, že výsledky mohou být ovlivněny způsobem náhodného generování příkladů, který nezahrnuje speciální případy, na nichž by určitá heuristika mohla selhávat či naopak být perfektní. Také není jasné jakou povahu by v tomto smyslu měly praktické úlohy. Například je možné, že vliv na výsledky mělo to, že různé zadávané hodnoty byly vesměs generovány rovnoměrně v rámci pevných intervalů, což s rostoucí velikostí zadání vede k \uv{rozmělňování}. Obtížné bylo též stanovení přiměřených vztahů mezi různými parametry generování zadání, které by vedlo k \uv{rozumným} příkladům. Postup generování tak byl do značné míry \uv{ad hoc}. Vytvořený programový systém umožňuje provést v budoucnu rozsáhlejší systematické testování, zavedení různých dalších heuristik a provedení experimentů s příklady větších velikostí.
+
+\subsection{Problém obchodního cestujícího}
+Generovány byly náhodné asymetrické příklady na úplném grafu s tím, že vzdálenosti mezi vrcholy byly generovány rovnoměrně z intervalu $[1,10]$.
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{l|rrrrrr}
+velikost & $|V^*|$ & $h_0$ & $\overrightarrow{h}$ & $\overleftarrow{h}$ & $\overline{h}$ & $\frac{\overline{h}}{V^*}$ \\ \hline
+10&2306  &2171,39  &109,71  &114,22  &57,98   &2,51 \%\\
+11&5122  &4859,20  &198,80  &222,27  &107,60  &2,10 \%\\
+12&11266 &10861,36 &308,23  &365,37  &145,45  &1,29 \%\\
+13&24578 &23810,50 &599,06  &563,67  &261,71  &1,06 \%\\
+14&53250 &52094,82 &1192,81 &1001,76 &441,33  &0,83 \%\\
+15&114690&112583,40&1753,00 &1500,70 &604,25  &0,53 \%
+\end{tabular}
+\end{center}
+\caption{Porovnání heuristik pro problém obchodního cestujícího.}
+\label{tab-heur-tsp}
+\end{table}
+Průměrné počty expanzí pro jednotlivé heuristiky (viz tabulka \ref{tab-heur-tsp}) potvrdily očekávání vyplývající z teorie (viz \ref{sect-tsp-heur}). Ukazuje se, že již jednoduché heuristiky vedou u náhodně generovaných příkladů k výraznému omezení prohledávané části A*-grafu. Algoritmus A* s nejsilnější heuristikou (maximum ze dvou \uv{duálních} heuristik) expandoval v průměru méně než 2,5 \% stavů.
+
+\subsection{Vrcholové pokrytí}
+Pro problém vrcholového pokrytí byly náhodně generovány neorientované grafy, kde pro každou dvojici vrcholů byla 50\% pravděpodobnost, že mezi nimi povede hrana.
+\begin{table}[h]
+\label{tab-heur-vp}
+\begin{center}
+\begin{tabular}{l|rrrr}
+velikost & $|V^*|$ & $h_0$ & $h$ & $\frac{h}{V^*}$ \\ \hline 
+10&1024 &678,70   &89,81   &8,77 \% \\
+11&2048 &1423,36 &206,78  &10,10 \%\\
+12&4096 &3119,64 &575,31  &14,05 \%\\
+13&8192 &6641,93 &1414,16 &17,26 \%\\
+14&16384&13804,92&3225,09 &19,68 \%\\
+15&32768&28837,78&8599,96 &26,24 \%
+\end{tabular}
+\end{center}
+\caption{Porovnání heuristik pro vrcholové pokrytí.}
+\end{table}
+Algoritmus A* řízený navrženou heuristikou zde u generovaných příkladů prohledal v průměru 8-27 \% A*-grafu (viz tabulka \ref{tab-heur-vp}). Úspora při prohledání tedy není tak výrazná. Je to zřejmě důsledek příliš uniformní struktury příslušného A*-grafu: všechny cesty do jednoho stavu mají stejnou délku, množina stavů o stejné velikosti je kombinatoricky velká a použitá heuristika není příliš silná.
+
+\subsection{Problém batohu}
+Objemy a ceny předmětů byly náhodně generovány z intervalu $[1,10]$. Objem batohu byl pak generován náhodně z intervalu 25-75\% celkového objemu všech předmětů.
+\begin{table}[h]
+\label{tab-heur-pb}
+\begin{center}
+\begin{tabular}{l|rrrr}
+velikost & $|V^*|$ & $h_0$ & $h$ & $\frac{h}{V^*}$ \\ \hline 
+10&1024 &218,74 &60,56  &5,91 \%\\
+11&2048 &340,80  &81,57  &3,98 \%\\
+12&4096 &713,41 &141,75 &3,46 \%\\
+13&8192 &1240,52&205,96 &2,51 \%\\
+14&16384&2260,46&244,05 &1,49 \%\\
+15&32768&4915,34&374,33 &1,14 \%
+\end{tabular}
+\end{center}
+\caption{Porovnání heuristik pro problém batohu.}
+\end{table}
+Použitá heuristika vedla v průměru k expanzi 1-6 \% stavů A*-grafu (viz tabulka \ref{tab-heur-pb}). To je vcelku dobrý výsledek, když přihlédneme k tomu, že podobně jako u vrcholového pokrytí mají všechny cesty do jednoho stavu stejnou délku.
+
+\subsection{Rozvrhování úloh}
+Časy trvání a penále úloh byly náhodně generovány rovnoměrně z intervalu  $[1,10]$, koeficienty růstu penalizace z intervalu  $[0,10]$. Časy ukončení úloh pak byly náhodně generovány v intervalu 10-90\% celkového času trvání všech úloh.
+\begin{table}[h]
+\label{tab-heur-ru}
+\begin{center}
+\begin{tabular}{l|rrrrrr}
+velikost & $|V^*|$ & $h_0$ & $h_1$ & $h_2$ & $h_3$ & $\frac{h_3}{V^*}$ \\ \hline 
+10&1024 &1023 &284,01 &837,45  &281,72  &27,51 \%\\
+11&2048 &2047 &501,18 &1729,56 &496,82  &24,26 \%\\
+12&4096 &4095 &1097,77&3596,39 &1090,48 &26,62 \%\\
+13&8192 &8191 &1715,09&7285,81 &1708,29 &20,85 \%\\
+14&16384&16383&3678,81&14790,14&3665,92 &22,38 \%\\
+15&32768&32767&7100,31&29959,20 &7089,73 &21,64 \%
+\end{tabular}
+\end{center}
+\caption{Porovnání heuristik pro rozvrhování úloh.}
+\end{table}
+Výsledky zpracování náhodně generovaných zadání problému rozvrhování úloh (viz tabulka \ref{tab-heur-ru}) byly překvapující. Dijkstrův algoritmus představovaný nulovou heuristikou vedl vždy k expandování všech necílových stavů A*-grafu (počet expanzí je vždy $|V^*|-1$). Znamená to, že do každého necílového stavu vedla cesta (permutace úloh) s náklady nižšími než celkové optimum. Neplatí to obecně, lze nalézt protipříklad, avšak vyjasnění tohoto jevu by vyžadovalo další výzkum.
+
+Stejně překvapivé bylo, že jednodušší heuristika $h_1$ vedla k významnějšímu omezení prohledávané části A*-grafu než heuristika $h_2$, u níž byly úspory prohledávání malé. Počet expanzí potřebných pro řešení s heuristikou $h_2$ byl v jednotlivých zadání vesměs (několikanásobně) větší než s heuristikou $h_1$. Potvrdilo se to i při statistickém testování tohoto vztahu pomocí Wilcoxonova dvouvýběrového testu (viz \cite{andel}, sekce 8.4; testování bylo provedeno pomocí statistického programu R) -- všechna znaménka byla kladná, takže byla jednoznačně přijata hypotéza o kladném rozdílu v počtu expanzí.
+
+Je možné, že se efekty heuristik změní při větších nebo jinak strukturovaných zadáních.
+
+\section{Porovnání aproximací na příkladech}
+V této sekci je na průběhu ukázkového řešení každého ze čtyř optimalizačních problémů demonstrována síla jednotlivých aproximací. Pro každý problém byl vybrán jeden náhodně vygenerovaný ukázkový příklad velikosti 20 (jejich zadání viz obrázky \ref{fig:gui-2-tsp}, \ref{fig:gui-2-vp}, \ref{fig:gui-2-pb}, \ref{fig:gui-2-ru}; tato zadání jsou také k dispozici na CD v adresáři \code{examples}). Jednotlivé příklady byly algoritmem A* řešeny s použitím nejsilnější implementované heuristiky a se všemi implementovanými aproximacemi (\uv{nultá} aproximace je generována použitou heuristikou, viz \ref{pozn-aproximace-0}; další aproximace jsou popsány v sekcích \ref{sect-tsp-aprox}, \ref{sect-vp-aprox}, \ref{sect-pb-aprox}, \ref{sect-ru-aprox}).
+
+Průběh řešení každého příkladu po jednotlivých expanzích je zobrazen v grafu. Zde je možno sledovat, jak rychle spodní a horní odhady konvergují k optimu a porovnávat kvalitu jednotlivých aproximací z hlediska klesající poměrové chyby. Poznamenejme, že horní odhady optima se mění skokem v momentě, kdy se nalezne lepší aproximativní řešení. 
+
+\subsection{Problém obchodního cestujícího}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/plot-tsp.pdf}
+ \caption{Porovnání aproximací na příkladu pro problém obchodního cestujícího}
+ \label{fig:plot-tsp}
+\end{figure}
+Algoritmus A* při řešení ukázkového příkladu (ze zadání na obrázku \ref{fig:gui-2-tsp}) provedl 36322 expanzí a nalezl optimum 35,493.
+Dolní odhad (viz obrázek \ref{fig:plot-tsp}) daný heuristikou $\overline{h}$ (viz definice \ref{def-tsp-heur-3}) se v příkladu rychle blíží hodnotě optima. Také horní odhad pomocí aproximace generované touto heuristikou (0. aproximace) se projevil velmi dobře.
+
+Na příkladu se potvrdilo, že 1. aproximace je horší, než aproximace generovaná heuristikou.
+
+\subsection{Vrcholové pokrytí}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/plot-vp.pdf}
+ \caption{Porovnání aproximací na příkladu pro problém vrcholového pokrytí}
+ \label{fig:plot-vp}
+\end{figure}
+Algoritmus A* při řešení ukázkového příkladu (ze zadání na obrázku \ref{fig:gui-2-vp}) provedl 564261 expanzí a nalezl optimum 15.
+Vývoj dolního odhadu (viz obrázek \ref{fig:plot-vp}) názorně ukazuje potíže s použitím algoritmu A* na řešení problému vrcholového pokrytí. Hodnota dolního odhadu se mění (diskrétně o 1) po provedení čím dál tím většího počtu expanzí (prohledání rozsáhlého souboru množin stejného počtu pokrývajících vrcholů). Solidní horní odhad poskytla už od začátku \uv{hladová} aproximace (1. aproximace). Aproximace generovaná heuristikou a 2. aproximace dávaly o 1 horší horní odhad.
+
+\subsection{Problém batohu}
+\begin{figure}[!]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/plot-pb.pdf}
+ \caption{Porovnání aproximací na příkladu pro problém batohu}
+ \label{fig:plot-pb}
+\end{figure}
+Algoritmus A* při řešení ukázkového příkladu (ze zadání na obrázku \ref{fig:gui-2-pb}) provedl 2559 expanzí a nalezl optimum 39,042.
+Řešení (viz obrázek \ref{fig:plot-pb}) pro problém batohu demonstruje různý efekt aplikace algoritmu A* při stejném kombinatorickém rozsahu A*-grafu (oproti příkladu problému vrcholového pokrytí je zde o dva řády nižší počet expanzí). Je zajímavé, že zde 1. aproximace splývá s 0. aproximací -- možná díky tomu, že obě vycházejí z použité heuristiky.
+
+\subsection{Rozvrhování úloh}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.4,keepaspectratio=true]{./screenshots/plot-ru.pdf}
+ \caption{Porovnání aproximací na příkladu pro problém rozvrhování úloh}
+ \label{fig:plot-ru}
+\end{figure}
+Algoritmus A* při řešení ukázkového příkladu (ze zadání na obrázku \ref{fig:gui-2-ru}) provedl 115375 expanzí a nalezl optimum 1003,474.
+Nejlepší se ukázala (viz obrázek \ref{fig:plot-ru}) 1. aproximace a zcela se neosvědčila její modifikace (2. aproximace). Aproximace generovaná použitou heuristikou dává v druhé části prohledávání obdobné horní odhady jako 1. aproximace.
+
+\chapter{Závěr}
+%V práci je navržena obecná metoda a vytvořeno programové prostředí, v němž je možné realizovat aplikaci algoritmu A* pro řešení různých optimalizačních kombinatorických problémů s využitím konzistentních heuristik, a nově i aproximací.
+
+%Možnosti metody jsou demonstrovány na čtyřech vybraných NP-těžkých optimalizačních problémech, které mají odlišné vlastnosti z hlediska aplikace A*: problém obchodního cestujícího, problém vrcholového pokrytí, problém batohu a problém rozvržení úloh. Každý z problémů byl převeden do A*-grafu tak, aby nalezení minimální cesty v tomto grafu bylo ekvivalentní s nalezením optimálního řešení problému.
+
+%Testovací příklady ověřují korektnost sestavených programů a ukazují úspory získané aplikací algoritmu A* při prohledávání řízeném konzistentní heuristikou a využívající aproximace oproti exhaustivnímu prohledávání a Dijkstrově algoritmu (představovanému nulovou heuristikou).
+% U této aplikace je nutno zdůraznit, že spojuje výhody algoritmu dynamického programování (který umožňuje snížit složitost z $O(n!)$ na $O(n^2 \cdot 2^n)$ a s využitím vhodných dolních mezí.
+
+Navrženou obecnou metodu využití algoritmu A* pro řešení optimalizačních problémů jsme programově realizovali a úspěšně aplikovali na čtyři vybrané NP-těžké problémy. Na závěr se pokusme shrnout získané poznatky.
+
+U problému obchodního cestujícího se převodem na A*-graf díky využití dynamického programování výrazně snížil rozměr prohledávaného prostoru (z $n!$ na $2 + (n-1) \cdot 2^{n-2}$) a s použitím heuristik ho algoritmus A* typicky projde jen malou část. Pro další výzkum směřující ke zvládnutí větších zadání se nabízejí heuristiky využívající například minimální kostry a problému párování.
+
+A*-graf reprezentující zvolenou variantu problému rozvrhování úloh se jeví vhodný pro aplikaci algoritmu A*. Převodem na A*-graf došlo (podobně jako u problému obchodního cestujícího) k redukci prohledávaného prostoru (z $n!$ na $2^n$). Jako obtížná se však ukázala tvorba heuristik. Poměrně složitá heuristika $h_2$, která se zdála být lepší než jednoduchá heuristika $h_1$, se překvapivě v testech neosvědčila a vedla typicky k většímu počtu expanzí než $h_1$.
+
+Je otázkou, jak moc je efektivní řešit vrcholové pokrytí a problém batohu pomocí algoritmu A*. Všechny cesty do jednoho stavu jsou totiž v příslušných A*-grafech stejně dlouhé (nezáleží na pořadí vybírání vrcholů a předmětů), takže jde jen o nalezení optimálního cílového stavu. Z tohoto pohledu se využívá lépe možností algoritmu A* v problémech, kde mají cesty do jednoho stavu různou délku. Typicky jsou to problémy, kde záleží i na pořadí prvků (jako v problému obchodního cestujícího a rozvrhování úloh) a nejde jen o to vybrat určitou množinu prvků.
+
+Dále si lze všimnout, že na rozdíl od problémů obchodního cestujícího a rozvrhování úloh se u vrcholového pokrytí a problému batohu převodem na A*-graf nijak nezmenší prohledávaný prostor (zůstane $2^n$).
+
+Celkově se nabízí závěr, že vhodnější je použití navržené metody na problémy, které dovolují aplikovat princip dynamického programování pro rozklad problému na podproblémy.
+
+Vytvořené programové prostředí umožňuje další výzkum a experimenty, zejména vyzkoušení dalších heuristik a aproximací, řešení dalších optimalizačních problémů a případné úpravy algoritmu či programu (například jeho paralelizací).
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Literatura}
+ \bibitem{andel} Anděl J.: \emph{Statistické metody.} 2. přepracované vydání. Univerzita Karlova, MATFYZPRESS, Praha 2003.
+ 
+ \bibitem{np} Ausiello G., Crescenzi P., Gambosi G., Kann V., Marchetti-Spaccamela A., Protasi M.: \emph{Complexity and Approximation. Combinatorial Optimization Problems and Their Approximability Properties.} Second corrected printing. Springer-Verlag, Berlin 2003. 
+
+ \bibitem{algorithms} Dasgupta S., Papadimitriou C. H., Vazirani U. V.: \emph{Algorithms. Penultimate draft.} Berkeley 2006. 
+ 
+ \bibitem{aprox} Hochbaum D. S. (ed.): \emph{Approximation Algorithms for NP-hard Problems.} PWS Publishing Comp, Boston 1997.
+  
+ \bibitem{garey} Garey M. R., Johnson D. S.: \emph{Computers and Intractability. A Guide to the Theory of NP-Completeness.} W. H. Freeman and Comp., New York 1979.
+ 
+ \bibitem{ivanek} Ivánek J., Morávek J.: \emph{Heuristic improvement of the dynamic programming treatment of the TSP}. Ekonomicko-matematický obzor 17, 1981, č. 1, str. 13 - 27. 
+ 
+ \bibitem{korte} Korte B., Vygen J.: \emph{Combinatorial Optimization. Theory and Algorithms.} Springer-Verlag, Berlin 2008.
+ 
+ \bibitem{kapitoly} Matoušek J., Nešetřil J.: \emph{Kapitoly z diskrétní matematiky.} Univerzita Karlova, Karolinum, Praha 2000.
+
+ \bibitem{nilsson} Nilsson N. J.: \emph{Problem-Solving Methods in Artificial Intelligence.} McGraw-Hill, New York 1971.
+
+  \bibitem{pokorny} Pokorný J., Žemlička M.: \emph{Základy implementace souborů a databází.} Univerzita Karlova, Karolinum, Praha 2004.
+ 
+ \bibitem{russel} Russel S. J., Norvig P.: \emph{Artificial Intelligence. A Modern Approach.} Second Edition. Prentice Hall, New Jersey 2003. 
+ 
+ \bibitem{skiena} Skiena S.: \emph{The Algorithm Design Manual.} Springer-Verlag, New York 1998.
+ 
+ \bibitem{topfer} Töpfer P.: \emph{Algoritmy a programovací techniky.} Prometheus, Praha 1995.
+ 
+ \bibitem{vlach} Vlach M.: \emph{Deterministické modely rozvrhování výroby.} SNTL, Praha 1983.
+ 
+\end{thebibliography}
+
+
+\end{document}

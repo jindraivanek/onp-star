@@ -1,0 +1,26 @@
+==TODOlist -neni hotovo, *hotovo, #odlozeno/ted neni dulezite
+# "zplacateni" celych stavu, jednodussi ukladani na disk, setreni s pameti
+* ukládání stavů na disk -> hledání řešení až na konci, stavy nepotřebují odkazovat na předchůdce
+- pro celou dat.strukt. udělat jednotný interface + hlídání velikosti + odkládání na disk
+- mnoziny udelat jako centralne rizenou dat. strukturu -- stejne mnoziny budou jenom jednou, nebude se zbytecne kopirovat informace o max. vel. mnoziny
+
+==DATOVÁ STRUKTURA PRO A*
+Potřebuji rychle odebrat prvek s nejmenším odhadem a rychle zjistit jestli tam
+ekvivalentní stav již nemám -> dva klíče.
+Patrně jiná možnost než dvojité indexování dat není. Halda + Hrábě/AVL/T-Tree.
+
+(Možná by šlo, že by data žila v haldě, hrábě by ukazovaly do haldy a index
+prvku v haldě by se zjistil pouhým odečtením pointerů. Oproti současné situaci
+bych patrně ušetřil 2x4B za prvek.)
+Lépe: data budou žít v hrábích, hrábě nebudou pointerové, ale budou tam naskládaná skutečná data. Hrábě by se měli optimalizovat na omezení přesunů dat, ale nenechávat zbytečně nevyužité místo.
+Ale: má to smysl za tu námahu? Hrábě se skládají z HashArray a SArray.. Stačí (skoro) převést SArray na nějaké pevneSArray.. Ale SArray budu pořád potřebovat (posílání následníků, apod.) -> nějaký obecný array, který žere jak pointery tak jakékoliv data (rozlišení přepínačem).
+
+Pozor! Prvek s nejmenším odhadem můžu odebírat pouze z haldy, jinak ho
+potřebuju, abych zjistil řešení.. Nebo přesunout někam jinam? Ideálně odsunout na disk, to že to budu procházet kvůli řešení mě tak nebolí.. Špatně, potřebuji ho abych zjistil zda negeneruji něco znova.. Ale můžu si stavět nějakou pevnou strukturu pro tyto uzavřené stavy (asi idealní binární strom, který si čas od času vygeneruji znova)
+
+==NÁPADY
+- pokud bude heuristika mit zarucenou nejakou chybu, dostanu zaroven aproximaci. Naopak pokud bude mit zarucenou chybu aproximace, dostanu minimalni hodnotu optima -> o stavy s mensi heuristikou se nemusim zajimat!
+TSP: heuristika: pro kazdy radek: v radku matice najit minimum a ten radek o to minimum zmensit; pote pro sloupce. Soucet vsech techto minim je heuristika. Zkusit i nejdriv sloupce pak radky a vzit maximum z techto dvou.
+
+==POZNÁMKY
+* na kontrolu pameti pouzivat valgrind. Přístup cmockery může vytvořit nepříjemné chyby..
